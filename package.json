@@ -2,6 +2,7 @@
   "name": "ui-web",
   "version": "0.1.0",
   "private": true,
+  "homepage":"https://timetables-app.github.io/ui-web/",
   "dependencies": {
     "@types/jest": "24.0.11",
     "@types/node": "11.11.6",
@@ -13,11 +14,12 @@
     "typescript": "3.3.4000"
   },
   "scripts": {
+    "deploy": "gh-pages -d build",
+    "predeploy": "yarn build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "react-scripts build && git checkout gh-pages"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +29,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
 }
