@@ -17,6 +17,7 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import BusinessIcon from '@material-ui/icons/Business';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import GestureIcon from '@material-ui/icons/Gesture';
 import CommuteIcon from '@material-ui/icons/Commute';
 import VerticalSplitIcon from '@material-ui/icons/VerticalSplit';
@@ -49,7 +50,7 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
             {[
                 {text: 'Rozkłady', Icon: VerticalSplitIcon, key: 'timetable'},
                 {text: 'Utrudnienia', Icon: ErrorOutlineIcon, key: 'impediment'},
-                {text: 'Przewoźnicy', Icon: AirportShuttleIcon, key: 'carrier'},
+                {text: 'Przewoźnicy', Icon: CommuteIcon, key: 'carrier'},
                 {text: 'Zgubione', Icon: TrackChangesIcon, key: 'lostAndFound'}
             ].map(({text, Icon, key}) => (
                 <ListItem button key={text}>
@@ -62,10 +63,10 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
         <List>
             {open && (<ListSubheader classes={{root: classes.listItemIcon}}>Właściciel firmy</ListSubheader>)}
             {[
-                {text: 'Moje firmy', Icon: BusinessIcon, key: 'company'},
-                {text: 'Pojazdy', Icon: CommuteIcon, key: 'vehicle'},
+                {text: 'Moje firmy', Icon: BusinessCenterIcon, key: 'company'},
+                {text: 'Pojazdy', Icon: AirportShuttleIcon, key: 'vehicle'},
                 {text: 'Linie', Icon: GestureIcon, key: 'line'},
-                {text: 'Rozkłady', Icon: VerticalSplitIcon, key: 'timetable'}
+                {text: 'Rozkłady', Icon: ScheduleIcon, key: 'timetable'}
             ].map(({text, Icon, key}) => (
                 <ListItem button key={text}>
                     <ListItemIcon classes={{root: classes.listItemIcon}}><Icon/></ListItemIcon>
