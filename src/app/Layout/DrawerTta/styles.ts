@@ -25,5 +25,14 @@ export default (theme: Theme) => createStyles({
             width: theme.spacing.unit * 9 + 1,
         },
     },
+    divider: {
+        background: '#101025'
+    },
+    listItemIcon: {
+        color: '#d8d8d8'
+    },
+    listItemText: {
+        color: '#fff'
+    },
     ...toolbar(theme),
 });

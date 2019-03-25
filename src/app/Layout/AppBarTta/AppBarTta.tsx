@@ -11,6 +11,7 @@ const AppBarTta: FunctionComponent<Props> = function ({classes, handleDrawerOpen
             className={classNames(classes.appBar, {
                 [classes.appBarShift]: open,
             })}
+            elevation={0}
         >
             <Toolbar disableGutters={!open}>
                 <IconButton

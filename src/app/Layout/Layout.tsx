@@ -3,10 +3,12 @@ import {
     WithStyles,
     withStyles,
     CssBaseline,
+    MuiThemeProvider,
 } from '@material-ui/core';
 import styles from './styles'
 import AppBarTta from './AppBarTta';
 import DrawerTta from './DrawerTta';
+import theme from './theme';
 
 const Layout: FunctionComponent<Props> = function Layout({classes, children}) {
     const [open, setOpen] = useState(true);
@@ -20,15 +22,17 @@ const Layout: FunctionComponent<Props> = function Layout({classes, children}) {
     };
 
     return (
-        <div className={classes.root}>
-            <CssBaseline/>
-            <AppBarTta handleDrawerOpen={handleDrawerOpen} open={open}/>
-            <DrawerTta handleDrawerClose={handleDrawerClose} open={open}/>
-            <main className={classes.content}>
-                <div className={classes.toolbar}/>
-                {children}
-            </main>
-        </div>
+        <MuiThemeProvider theme={theme}>
+            <div className={classes.root}>
+                <CssBaseline/>
+                <AppBarTta handleDrawerOpen={handleDrawerOpen} open={open}/>
+                <DrawerTta handleDrawerClose={handleDrawerClose} open={open}/>
+                <main className={classes.content}>
+                    <div className={classes.toolbar}/>
+                    {children}
+                </main>
+            </div>
+        </MuiThemeProvider>
     );
 };
 

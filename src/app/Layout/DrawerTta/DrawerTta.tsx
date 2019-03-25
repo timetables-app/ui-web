@@ -12,8 +12,9 @@ import {
 } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import AirportShuttleIcon from '@material-ui/icons/AirportShuttle';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import React, {FunctionComponent} from 'react';
 import styles from './styles';
 
@@ -33,28 +34,24 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
         open={open}
     >
         <div className={classes.toolbar}>
-            <IconButton onClick={handleDrawerClose}>
+            <IconButton onClick={handleDrawerClose} classes={{root: classes.listItemIcon}}>
                 {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
             </IconButton>
         </div>
-        <Divider/>
+        <Divider className={classes.divider}/>
         <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            {[
+                {text: 'Rozkłady', Icon: ScheduleIcon, key: 'timetable'},
+                {text: 'Przewoźnicy', Icon: AirportShuttleIcon, key: 'carrier'},
+                {text: 'Zgubione', Icon: TrackChangesIcon, key: 'lostAndFound'}
+            ].map(({text, Icon, key}) => (
                 <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                    <ListItemText primary={text}/>
+                    <ListItemIcon classes={{root: classes.listItemIcon}}><Icon/></ListItemIcon>
+                    <ListItemText primary={text} classes={{primary: classes.listItemText}}/>
                 </ListItem>
             ))}
         </List>
-        <Divider/>
-        <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                    <ListItemText primary={text}/>
-                </ListItem>
-            ))}
-        </List>
+        <Divider className={classes.divider}/>
     </Drawer>)
 };
 
