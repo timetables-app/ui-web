@@ -40,7 +40,8 @@ export default createMuiTheme({
         },
         MuiDrawer: {
             paper: {
-                background: '#202047'
+                background: '#202047',
+                backgroundImage: 'linear-gradient(#202047, #131325)'
             }
         }
     }

@@ -15,6 +15,7 @@ const drawerWidth = 240;
 const toolbar = (theme: Theme) => ({
     toolbar: {
         display: 'flex',
+        flex: 'none',
         alignItems: 'center',
         justifyContent: 'flex-end',
         padding: '0 8px',

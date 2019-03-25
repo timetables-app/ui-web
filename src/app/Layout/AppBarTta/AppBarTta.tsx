@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {AppBar, IconButton, Theme, Toolbar, Typography, withStyles, WithStyles} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import React, {FunctionComponent} from 'react';
 import styles from './styles';
 
@@ -24,9 +25,12 @@ const AppBarTta: FunctionComponent<Props> = function ({classes, handleDrawerOpen
                 >
                     <MenuIcon/>
                 </IconButton>
-                <Typography variant="h6" color="inherit" noWrap>
+                <Typography variant="h6" color="inherit" noWrap style={{flexGrow: 1}}>
                     Mini variant drawer
                 </Typography>
+                <IconButton>
+                    <AccountCircleIcon/>
+                </IconButton>
             </Toolbar>
         </AppBar>
     )

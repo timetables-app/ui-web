@@ -6,7 +6,7 @@ import {
     List,
     ListItem,
     ListItemIcon,
-    ListItemText, Theme,
+    ListItemText, ListSubheader, Theme, Typography,
     WithStyles,
     withStyles
 } from '@material-ui/core';
@@ -15,6 +15,12 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import AirportShuttleIcon from '@material-ui/icons/AirportShuttle';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import BusinessIcon from '@material-ui/icons/Business';
+import GestureIcon from '@material-ui/icons/Gesture';
+import CommuteIcon from '@material-ui/icons/Commute';
+import VerticalSplitIcon from '@material-ui/icons/VerticalSplit';
+import NearMeIcon from '@material-ui/icons/NearMe';
 import React, {FunctionComponent} from 'react';
 import styles from './styles';
 
@@ -41,7 +47,8 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
         <Divider className={classes.divider}/>
         <List>
             {[
-                {text: 'Rozkłady', Icon: ScheduleIcon, key: 'timetable'},
+                {text: 'Rozkłady', Icon: VerticalSplitIcon, key: 'timetable'},
+                {text: 'Utrudnienia', Icon: ErrorOutlineIcon, key: 'impediment'},
                 {text: 'Przewoźnicy', Icon: AirportShuttleIcon, key: 'carrier'},
                 {text: 'Zgubione', Icon: TrackChangesIcon, key: 'lostAndFound'}
             ].map(({text, Icon, key}) => (
@@ -52,6 +59,33 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
             ))}
         </List>
         <Divider className={classes.divider}/>
+        <List>
+            {open && (<ListSubheader classes={{root: classes.listItemIcon}}>Właściciel firmy</ListSubheader>)}
+            {[
+                {text: 'Moje firmy', Icon: BusinessIcon, key: 'company'},
+                {text: 'Pojazdy', Icon: CommuteIcon, key: 'vehicle'},
+                {text: 'Linie', Icon: GestureIcon, key: 'line'},
+                {text: 'Rozkłady', Icon: VerticalSplitIcon, key: 'timetable'}
+            ].map(({text, Icon, key}) => (
+                <ListItem button key={text}>
+                    <ListItemIcon classes={{root: classes.listItemIcon}}><Icon/></ListItemIcon>
+                    <ListItemText primary={text} classes={{primary: classes.listItemText}}/>
+                </ListItem>
+            ))}
+        </List>
+        <Divider className={classes.divider}/>
+        <List>
+            {open && (<ListSubheader classes={{root: classes.listItemIcon}}>Administrator</ListSubheader>)}
+            {[
+                {text: 'Firmy', Icon: BusinessIcon, key: 'company'},
+                {text: 'Miejsca', Icon: NearMeIcon, key: 'place'},
+            ].map(({text, Icon, key}) => (
+                <ListItem button key={text}>
+                    <ListItemIcon classes={{root: classes.listItemIcon}}><Icon/></ListItemIcon>
+                    <ListItemText primary={text} classes={{primary: classes.listItemText}}/>
+                </ListItem>
+            ))}
+        </List>
     </Drawer>)
 };
 
