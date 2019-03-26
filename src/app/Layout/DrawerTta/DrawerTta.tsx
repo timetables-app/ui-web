@@ -61,7 +61,7 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
         </List>
         <Divider className={classes.divider}/>
         <List>
-            {open && (<ListSubheader classes={{root: classes.listItemIcon}}>Właściciel firmy</ListSubheader>)}
+            {open && (<ListSubheader disableSticky classes={{root: classes.listItemIcon}}>Właściciel firmy</ListSubheader>)}
             {[
                 {text: 'Moje firmy', Icon: BusinessCenterIcon, key: 'company'},
                 {text: 'Pojazdy', Icon: AirportShuttleIcon, key: 'vehicle'},
@@ -76,7 +76,7 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
         </List>
         <Divider className={classes.divider}/>
         <List>
-            {open && (<ListSubheader classes={{root: classes.listItemIcon}}>Administrator</ListSubheader>)}
+            {open && (<ListSubheader disableSticky classes={{root: classes.listItemIcon}}>Administrator</ListSubheader>)}
             {[
                 {text: 'Firmy', Icon: BusinessIcon, key: 'company'},
                 {text: 'Miejsca', Icon: NearMeIcon, key: 'place'},

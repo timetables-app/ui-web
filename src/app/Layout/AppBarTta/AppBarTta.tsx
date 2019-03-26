@@ -14,7 +14,7 @@ const AppBarTta: FunctionComponent<Props> = function ({classes, handleDrawerOpen
             })}
             elevation={0}
         >
-            <Toolbar disableGutters={!open}>
+            <Toolbar disableGutters={!open} style={{backgroundImage: 'linear-gradient(#fff, #f7f7f7)'}}>
                 <IconButton
                     color="inherit"
                     aria-label="Open drawer"

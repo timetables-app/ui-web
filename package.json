@@ -11,9 +11,12 @@
     "@types/node": "11.11.6",
     "@types/react": "16.8.8",
     "@types/react-dom": "16.8.3",
+    "@types/react-leaflet": "^2.2.1",
     "classnames": "^2.2.6",
+    "leaflet": "^1.4.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
+    "react-leaflet": "^2.2.1",
     "react-scripts": "2.1.8",
     "typescript": "3.3.4000"
   },
