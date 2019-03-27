@@ -63,7 +63,7 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
         <List>
             {open && (<ListSubheader disableSticky classes={{root: classes.listItemIcon}}>Właściciel firmy</ListSubheader>)}
             {[
-                {text: 'Moje firmy', Icon: BusinessCenterIcon, key: 'company'},
+                {text: 'Moja firma', Icon: BusinessCenterIcon, key: 'company'},
                 {text: 'Pojazdy', Icon: AirportShuttleIcon, key: 'vehicle'},
                 {text: 'Linie', Icon: GestureIcon, key: 'line'},
                 {text: 'Rozkłady', Icon: ScheduleIcon, key: 'timetable'}

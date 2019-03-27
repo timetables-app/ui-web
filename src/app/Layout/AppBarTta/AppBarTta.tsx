@@ -26,7 +26,7 @@ const AppBarTta: FunctionComponent<Props> = function ({classes, handleDrawerOpen
                     <MenuIcon/>
                 </IconButton>
                 <Typography variant="h6" color="inherit" noWrap style={{flexGrow: 1}}>
-                    Mini variant drawer
+                    Rozkłady mapa
                 </Typography>
                 <IconButton>
                     <AccountCircleIcon/>
