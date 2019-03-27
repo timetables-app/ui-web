@@ -7,7 +7,9 @@ export default (theme: Theme) => createStyles({
     ...toolbar(theme),
     content: {
         flexGrow: 1,
-        padding: theme.spacing.unit * 3,
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh'
     },
 });
 

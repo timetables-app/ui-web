@@ -42,9 +42,9 @@ const Layout: FunctionComponent<Props> = function Layout({classes, children}) {
                         showLabels
                         style={{width: '100%'}}
                     >
-                        <BottomNavigationAction label="Mapa" icon={<MapIcon />} />
-                        <BottomNavigationAction label="Linie" icon={<FormatListNumberedIcon />} />
-                        <BottomNavigationAction label="Miejsca" icon={<PlaceIcon />} />
+                        <BottomNavigationAction label="Mapa" icon={<MapIcon/>}/>
+                        <BottomNavigationAction label="Linie" icon={<FormatListNumberedIcon/>}/>
+                        <BottomNavigationAction label="Miejsca" icon={<PlaceIcon/>}/>
                     </BottomNavigation>
                 </main>
             </div>
