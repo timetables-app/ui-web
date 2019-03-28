@@ -1,7 +1,18 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import Layout from './app/Layout';
 import {Map, Marker, TileLayer} from 'react-leaflet';
-import {Card, CardHeader, CardActions, Button} from '@material-ui/core';
+import PlaceIcon from '@material-ui/icons/Place'
+import {
+    Card,
+    CardHeader,
+    CardActions,
+    Button,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Divider
+} from '@material-ui/core';
 
 function App() {
     const [toggle, setToggle] = useState(false);
@@ -14,13 +25,29 @@ function App() {
                 paddingLeft: '24px',
             }}>
                 <Card>
+                    <List component="nav">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <PlaceIcon color='primary'/>
+                            </ListItemIcon>
+                            <ListItemText inset primary="AGH \ UR" secondary="Skąd"/>
+                        </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <ListItemIcon>
+                                <PlaceIcon color='secondary'/>
+                            </ListItemIcon>
+                            <ListItemText inset primary="Czarnowiejska" secondary="Dokąd" />
+                        </ListItem>
+                    </List>
+                    <Divider />
                     <CardHeader title="Czarnowiejska"/>
                     <CardActions>
                         <Button size='small' color='primary' variant='outlined'>
                             Start
                         </Button>
                         <Button size='small' color='secondary' variant='outlined'>
-                            Koniec
+                            Cel
                         </Button>
                     </CardActions>
                 </Card>

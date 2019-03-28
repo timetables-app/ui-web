@@ -40,7 +40,7 @@ const Layout: FunctionComponent<Props> = function Layout({classes, children}) {
                         value={0}
                         // onChange={this.handleChange}
                         showLabels
-                        style={{width: '100%'}}
+                        style={{width: '100%', borderTop: '1px solid #d8d8d8'}}
                     >
                         <BottomNavigationAction label="Mapa" icon={<MapIcon/>}/>
                         <BottomNavigationAction label="Linie" icon={<FormatListNumberedIcon/>}/>
