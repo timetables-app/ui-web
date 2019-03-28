@@ -11,18 +11,19 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    Divider
+    Divider,
+    Typography
 } from '@material-ui/core';
 
 function App() {
-    const [toggle, setToggle] = useState(false);
+    const [toggle, setToggle] = useState(true);
     return (
         <Layout>
             {toggle && (<div style={{
                 position: 'absolute',
                 zIndex: 9999,
-                top: '80px',
-                paddingLeft: '24px',
+                top: '66px',
+                paddingLeft: '10px',
             }}>
                 <Card>
                     <List component="nav">
@@ -39,9 +40,13 @@ function App() {
                             </ListItemIcon>
                             <ListItemText inset primary="Czarnowiejska" secondary="Dokąd" />
                         </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <ListItemText inset primary="10:00 30.03.2019" secondary="Data odjazdu" style={{padding: 0}}/>
+                        </ListItem>
                     </List>
                     <Divider />
-                    <CardHeader title="Czarnowiejska"/>
+                    <CardHeader title="Czarnowiejska" style={{padding: '16px 16px 8px 8px'}}/>
                     <CardActions>
                         <Button size='small' color='primary' variant='outlined'>
                             Start
