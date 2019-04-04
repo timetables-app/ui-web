@@ -25,7 +25,7 @@ import NearMeIcon from '@material-ui/icons/NearMe';
 import React, {FunctionComponent} from 'react';
 import styles from './styles';
 
-const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDrawerClose, open}) {
+const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDrawerClose, open, handleContent}) {
     return (<Drawer
         variant="permanent"
         className={classNames(classes.drawer, {
@@ -81,7 +81,7 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
                 {text: 'Firmy', Icon: BusinessIcon, key: 'company'},
                 {text: 'Miejsca', Icon: NearMeIcon, key: 'place'},
             ].map(({text, Icon, key}) => (
-                <ListItem button key={text}>
+                <ListItem button key={text} onClick={handleContent}>
                     <ListItemIcon classes={{root: classes.listItemIcon}}><Icon/></ListItemIcon>
                     <ListItemText primary={text} classes={{primary: classes.listItemText}}/>
                 </ListItem>
@@ -93,6 +93,7 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
 interface Props extends WithStyles<typeof styles> {
     handleDrawerClose: () => void,
     open: boolean,
+    handleContent: () => void,
     theme: Theme
 }
 

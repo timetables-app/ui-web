@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Layout from './app/Layout';
 import {Map, Marker, TileLayer} from 'react-leaflet';
 import PlaceIcon from '@material-ui/icons/Place'
+import Content from "./app/Layout/Content";
 import {
     Card,
     CardHeader,
@@ -19,8 +20,15 @@ function App() {
     const [selectedPlace, setSelectedPlace] = useState<string>('');
     const [source, setSource] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
+    const [contentOpen, setContentOpen] = useState(false);
+
+    const handleContent = () => {
+        setContentOpen(!contentOpen);
+    };
+
     return (
-        <Layout>
+        <Layout handleContent={handleContent}>
+            <Content contentOpen={contentOpen}/>
             <div style={{
                 position: 'absolute',
                 zIndex: 9999,
