@@ -22,9 +22,9 @@ function App() {
     const [destination, setDestination] = useState<string>('');
     const [contentOpen, setContentOpen] = useState(false);
 
-    const handleContent = () => {
+    function handleContent(type: string) {
         setContentOpen(!contentOpen);
-    };
+    }
 
     return (
         <Layout handleContent={handleContent}>

@@ -42,7 +42,7 @@ const Layout: FunctionComponent<Props> = function Layout({classes, children, han
 };
 
 interface Props extends WithStyles<typeof styles> {
-    handleContent: () => void
+    handleContent: (type: string) => void
 }
 
 export default withStyles(styles, {withTheme: true})(Layout);

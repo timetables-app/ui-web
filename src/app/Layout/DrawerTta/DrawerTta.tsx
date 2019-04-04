@@ -81,7 +81,7 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
                 {text: 'Firmy', Icon: BusinessIcon, key: 'company'},
                 {text: 'Miejsca', Icon: NearMeIcon, key: 'place'},
             ].map(({text, Icon, key}) => (
-                <ListItem button key={text} onClick={handleContent}>
+                <ListItem button key={text} onClick={() => {handleContent(key)}}>
                     <ListItemIcon classes={{root: classes.listItemIcon}}><Icon/></ListItemIcon>
                     <ListItemText primary={text} classes={{primary: classes.listItemText}}/>
                 </ListItem>
@@ -93,7 +93,7 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
 interface Props extends WithStyles<typeof styles> {
     handleDrawerClose: () => void,
     open: boolean,
-    handleContent: () => void,
+    handleContent: (type: string) => void,
     theme: Theme
 }
 
