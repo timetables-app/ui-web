@@ -3,6 +3,8 @@ import Layout from './app/Layout';
 import {Map, Marker, TileLayer} from 'react-leaflet';
 import PlaceIcon from '@material-ui/icons/Place'
 import Content from "./app/Layout/Content";
+import Companies from "./app/Layout/Content/Companies";
+import Empty from "./app/Layout/Content/Empty";
 import {
     Card,
     CardHeader,
@@ -21,14 +23,25 @@ function App() {
     const [source, setSource] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
     const [contentOpen, setContentOpen] = useState(false);
+    let contentComponent = <Empty/>;
+
+    let chooseComponent = (type: string) => {
+        if(type == 'company'){
+            contentComponent = <Companies/>;
+        }
+    };
 
     function handleContent(type: string) {
+        if(!contentOpen){
+            chooseComponent(type);
+        }
+
         setContentOpen(!contentOpen);
     }
 
     return (
         <Layout handleContent={handleContent}>
-            <Content contentOpen={contentOpen}/>
+            <Content contentOpen={contentOpen} contentComponent={contentComponent}/>
             <div style={{
                 position: 'absolute',
                 zIndex: 9999,
