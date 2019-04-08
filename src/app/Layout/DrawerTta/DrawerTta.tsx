@@ -6,7 +6,9 @@ import {
     List,
     ListItem,
     ListItemIcon,
-    ListItemText, ListSubheader, Theme, Typography,
+    ListItemText,
+    ListSubheader,
+    Theme,
     WithStyles,
     withStyles
 } from '@material-ui/core';
@@ -24,6 +26,7 @@ import VerticalSplitIcon from '@material-ui/icons/VerticalSplit';
 import NearMeIcon from '@material-ui/icons/NearMe';
 import React, {FunctionComponent} from 'react';
 import styles from './styles';
+import {Link} from 'react-router-dom';
 
 const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDrawerClose, open}) {
     return (<Drawer
@@ -61,7 +64,8 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
         </List>
         <Divider className={classes.divider}/>
         <List>
-            {open && (<ListSubheader disableSticky classes={{root: classes.listItemIcon}}>Właściciel firmy</ListSubheader>)}
+            {open && (
+                <ListSubheader disableSticky classes={{root: classes.listItemIcon}}>Właściciel firmy</ListSubheader>)}
             {[
                 {text: 'Moja firma', Icon: BusinessCenterIcon, key: 'company'},
                 {text: 'Pojazdy', Icon: AirportShuttleIcon, key: 'vehicle'},
@@ -76,15 +80,18 @@ const DrawerTta: FunctionComponent<Props> = function ({classes, theme, handleDra
         </List>
         <Divider className={classes.divider}/>
         <List>
-            {open && (<ListSubheader disableSticky classes={{root: classes.listItemIcon}}>Administrator</ListSubheader>)}
+            {open && (
+                <ListSubheader disableSticky classes={{root: classes.listItemIcon}}>Administrator</ListSubheader>)}
             {[
                 {text: 'Firmy', Icon: BusinessIcon, key: 'company'},
                 {text: 'Miejsca', Icon: NearMeIcon, key: 'place'},
             ].map(({text, Icon, key}) => (
-                <ListItem button key={text}>
-                    <ListItemIcon classes={{root: classes.listItemIcon}}><Icon/></ListItemIcon>
-                    <ListItemText primary={text} classes={{primary: classes.listItemText}}/>
-                </ListItem>
+                <Link to="/countries">
+                    <ListItem button key={text}>
+                        <ListItemIcon classes={{root: classes.listItemIcon}}><Icon/></ListItemIcon>
+                        <ListItemText primary={text} classes={{primary: classes.listItemText}}/>
+                    </ListItem>
+                </Link>
             ))}
         </List>
     </Drawer>)
