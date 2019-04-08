@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
+  "rulesDirectory": [
+    "tslint-plugin-prettier"
+  ],
+  "rules": {
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "jsx-boolean-value": [
+      true,
+      "never"
+    ],
+    "prettier": [
+      true,
+      ".prettierrc"
+    ]
+  },
+  "linterOptions": {
+    "exclude": [
+      "src/serviceWorker.ts"
+    ]
+  }
+}

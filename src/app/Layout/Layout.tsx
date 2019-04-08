@@ -1,36 +1,41 @@
-import React, {FunctionComponent, useState} from 'react';
-import {CssBaseline, MuiThemeProvider, WithStyles, withStyles,} from '@material-ui/core';
-import styles from './styles'
-import AppBarTta from './AppBarTta';
-import DrawerTta from './DrawerTta';
+import {
+  CssBaseline,
+  MuiThemeProvider,
+  WithStyles,
+  withStyles
+} from '@material-ui/core';
+import React, { FunctionComponent, useState } from 'react';
+import AppBar from './AppBar';
+import Drawer from './Drawer';
+import styles from './styles';
 import theme from './theme';
 
-const Layout: FunctionComponent<Props> = function Layout({classes, children}) {
-    const [open, setOpen] = useState(true);
+const Layout: FunctionComponent<Props> = ({ classes, children }) => {
+  const [open, setOpen] = useState(true);
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
-    return (
-        <MuiThemeProvider theme={theme}>
-            <div className={classes.root}>
-                <CssBaseline/>
-                <AppBarTta handleDrawerOpen={handleDrawerOpen} open={open}/>
-                <DrawerTta handleDrawerClose={handleDrawerClose} open={open}/>
-                <main className={classes.content}>
-                    <div className={classes.toolbar}/>
-                    {children}
-                </main>
-            </div>
-        </MuiThemeProvider>
-    );
+  return (
+    <MuiThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar handleDrawerOpen={handleDrawerOpen} open={open} />
+        <Drawer handleDrawerClose={handleDrawerClose} open={open} />
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          {children}
+        </main>
+      </div>
+    </MuiThemeProvider>
+  );
 };
 
 type Props = WithStyles<typeof styles>;
 
-export default withStyles(styles, {withTheme: true})(Layout);
+export default withStyles(styles, { withTheme: true })(Layout);

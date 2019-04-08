@@ -1,1 +1,1 @@
-export {default as CountryList} from './List'
+export { default as CountryList } from './List';

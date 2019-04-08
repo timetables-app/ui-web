@@ -1,28 +1,29 @@
-import {Theme, createStyles} from "@material-ui/core";
+import { createStyles, Theme } from '@material-ui/core';
 
-export default (theme: Theme) => createStyles({
+export default (theme: Theme) =>
+  createStyles({
     root: {
-        display: 'flex',
+      display: 'flex'
     },
     ...toolbar(theme),
     content: {
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100vh'
-    },
-});
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: 1,
+      height: '100vh'
+    }
+  });
 
 const drawerWidth = 240;
 const toolbar = (theme: Theme) => ({
-    toolbar: {
-        display: 'flex',
-        flex: 'none',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 8px',
-        ...theme.mixins.toolbar,
-    }
+  toolbar: {
+    alignItems: 'center',
+    display: 'flex',
+    flex: 'none',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar
+  }
 });
 
-export {drawerWidth, toolbar};
+export { drawerWidth, toolbar };
