@@ -1,5 +1,6 @@
 import MUIDataTable from 'mui-datatables';
 import React from 'react'
+import muiDataTablesPl from '../../app/muiDataTablesPl';
 
 function List() {
     return (
@@ -19,7 +20,8 @@ function List() {
                           options={{
                               filterType: 'textField',
                               serverSide: true,
-                              onTableChange: (action, state) => console.log(action, state)
+                              onTableChange: (action, state) => console.log(action, state),
+                              textLabels: muiDataTablesPl
                           }}
             />
         </div>
