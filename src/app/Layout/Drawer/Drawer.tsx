@@ -62,20 +62,42 @@ const Drawer: FunctionComponent<Props> = ({
       <Divider className={classes.divider} />
       <List>
         {[
-          { text: 'Rozkłady', Icon: VerticalSplit, key: 'timetable' },
-          { text: 'Utrudnienia', Icon: ErrorOutline, key: 'impediment' },
-          { text: 'Przewoźnicy', Icon: Commute, key: 'carrier' },
-          { text: 'Zgubione', Icon: TrackChanges, key: 'lostAndFound' }
-        ].map(({ text, Icon, key }) => (
-          <ListItem button key={text}>
-            <ListItemIcon classes={{ root: classes.listItemIcon }}>
-              <Icon />
-            </ListItemIcon>
-            <ListItemText
-              primary={text}
-              classes={{ primary: classes.listItemText }}
-            />
-          </ListItem>
+          {
+            Icon: VerticalSplit,
+            key: 'timetable',
+            link: '/',
+            text: 'Rozkłady'
+          },
+          {
+            Icon: ErrorOutline,
+            key: 'impediment',
+            link: '/impediments',
+            text: 'Utrudnienia'
+          },
+          {
+            Icon: Commute,
+            key: 'carrier',
+            link: '/carriers',
+            text: 'Przewoźnicy'
+          },
+          {
+            Icon: TrackChanges,
+            key: 'lostAndFound',
+            link: '/lost-and-found',
+            text: 'Zgubione'
+          }
+        ].map(({ text, Icon, key, link }) => (
+          <Link to={link} key={key}>
+            <ListItem button>
+              <ListItemIcon classes={{ root: classes.listItemIcon }}>
+                <Icon />
+              </ListItemIcon>
+              <ListItemText
+                primary={text}
+                classes={{ primary: classes.listItemText }}
+              />
+            </ListItem>
+          </Link>
         ))}
       </List>
       <Divider className={classes.divider} />

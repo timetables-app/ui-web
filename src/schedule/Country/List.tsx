@@ -1,8 +1,14 @@
+import { IconButton, Tooltip } from '@material-ui/core';
+import { BugReport } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import { connect } from 'react-redux';
+import { SET_APP_BAR_TITLE } from '../../app/action/appBarTitle';
 import muiDataTablesPl from '../../app/muiDataTablesPl';
 
-function List() {
+const List: FunctionComponent<Props> = ({ setAppBarTitle }) => {
+  setAppBarTitle('Miejsca');
+
   return (
     <div style={{ padding: 24 }}>
       <MUIDataTable
@@ -21,14 +27,41 @@ function List() {
           { id: 5, iso: 'FR', iso3: 'FRA', name: 'France' }
         ]}
         options={{
+          customToolbarSelect: () => (
+            <Tooltip title="Oznacz jako nieaktualne">
+              <IconButton>
+                <BugReport />
+              </IconButton>
+            </Tooltip>
+          ),
+          download: false,
+          elevation: 1,
           filterType: 'textField',
           onTableChange: (action, state) => console.log(action, state),
+          print: false,
+          responsive: 'scroll',
+          search: false,
           serverSide: true,
-          textLabels: muiDataTablesPl
+          textLabels: muiDataTablesPl,
+          viewColumns: false
         }}
       />
     </div>
   );
+};
+
+interface Props {
+  setAppBarTitle: (appBarTitle: string) => void;
 }
 
-export default List;
+const mapDispatchToProps = {
+  setAppBarTitle: (appBarTitle: string) => ({
+    payload: appBarTitle,
+    type: SET_APP_BAR_TITLE
+  })
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(List);

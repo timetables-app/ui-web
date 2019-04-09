@@ -1,19 +1,22 @@
-import { Map as MapLeaflet, Marker, TileLayer } from 'react-leaflet';
-import PlaceIcon from '@material-ui/icons/Place';
 import {
-  Card,
-  CardHeader,
-  CardActions,
   Button,
+  Card,
+  CardActions,
+  CardHeader,
+  Divider,
   List,
   ListItem,
   ListItemIcon,
-  ListItemText,
-  Divider
+  ListItemText
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import { Place } from '@material-ui/icons';
+import React, { FunctionComponent, useState } from 'react';
+import { Map as MapLeaflet, Marker, TileLayer } from 'react-leaflet';
+import { connect } from 'react-redux';
+import { SET_APP_BAR_TITLE } from '../../app/action/appBarTitle';
 
-function Map() {
+const Map: FunctionComponent<Props> = ({ setAppBarTitle }) => {
+  setAppBarTitle('Rozkłady mapa');
   const [selectedPlace, setSelectedPlace] = useState<string>('');
   const [source, setSource] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
@@ -32,14 +35,14 @@ function Map() {
           <List component="nav">
             <ListItem button>
               <ListItemIcon>
-                <PlaceIcon color="primary" />
+                <Place color="primary" />
               </ListItemIcon>
               <ListItemText inset primary={source} secondary="Skąd" />
             </ListItem>
             <Divider />
             <ListItem button>
               <ListItemIcon>
-                <PlaceIcon color="secondary" />
+                <Place color="secondary" />
               </ListItemIcon>
               <ListItemText inset primary={destination} secondary="Dokąd" />
             </ListItem>
@@ -102,6 +105,20 @@ function Map() {
       </MapLeaflet>
     </>
   );
+};
+
+interface Props {
+  setAppBarTitle: (appBarTitle: string) => void;
 }
 
-export default Map;
+const mapDispatchToProps = {
+  setAppBarTitle: (appBarTitle: string) => ({
+    payload: appBarTitle,
+    type: SET_APP_BAR_TITLE
+  })
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Map);
