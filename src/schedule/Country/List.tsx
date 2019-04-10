@@ -1,6 +1,6 @@
 import { IconButton, Tooltip } from '@material-ui/core';
 import { BugReport } from '@material-ui/icons';
-import MUIDataTable from 'mui-datatables';
+import MuiDataTable from 'mui-datatables';
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { SET_APP_BAR_TITLE } from '../../app/action/appBarTitle';
@@ -11,7 +11,7 @@ const List: FunctionComponent<Props> = ({ setAppBarTitle }) => {
 
   return (
     <div style={{ padding: 24 }}>
-      <MUIDataTable
+      <MuiDataTable
         title="Kraje"
         columns={[
           { name: 'id', label: 'Id' },

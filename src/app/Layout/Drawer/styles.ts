@@ -3,6 +3,9 @@ import { drawerWidth, toolbar } from '../styles';
 
 export default (theme: Theme) =>
   createStyles({
+    chevron: {
+      color: '#d8d8d8'
+    },
     divider: {
       background: '#101025'
     },
@@ -28,12 +31,6 @@ export default (theme: Theme) =>
         easing: theme.transitions.easing.sharp
       }),
       width: drawerWidth
-    },
-    listItemIcon: {
-      color: '#d8d8d8'
-    },
-    listItemText: {
-      color: '#fff'
     },
     ...toolbar(theme)
   });

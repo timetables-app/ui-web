@@ -1,5 +1,5 @@
 import {
-  AppBar as MUIAppBar,
+  AppBar as MuiAppBar,
   IconButton,
   Toolbar,
   Typography,
@@ -20,7 +20,7 @@ const AppBar: FunctionComponent<Props> = ({
   appBarTitle
 }) => {
   return (
-    <MUIAppBar
+    <MuiAppBar
       position="fixed"
       className={classNames(classes.appBar, {
         [classes.appBarShift]: open
@@ -46,7 +46,7 @@ const AppBar: FunctionComponent<Props> = ({
         </Typography>
         <AccountDropdown />
       </Toolbar>
-    </MUIAppBar>
+    </MuiAppBar>
   );
 };
 
