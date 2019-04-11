@@ -1,5 +1,6 @@
 import {
   CssBaseline,
+  LinearProgress,
   MuiThemeProvider,
   WithStyles,
   withStyles
@@ -25,6 +26,7 @@ const Layout: FunctionComponent<Props> = ({ classes, children }) => {
     <MuiThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
+        <LinearProgress color="secondary" className={classes.progress} />
         <AppBar handleDrawerOpen={handleDrawerOpen} open={open} />
         <Drawer handleDrawerClose={handleDrawerClose} open={open} />
         <main className={classes.content}>

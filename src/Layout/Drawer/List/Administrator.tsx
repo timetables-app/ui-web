@@ -22,9 +22,9 @@ const Administrator: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
       )}
       {[
         { text: 'Firmy', Icon: Business, key: 'company' },
-        { text: 'Miejsca', Icon: NearMe, key: 'place' }
+        { text: 'GeoDane', Icon: NearMe, key: 'place' }
       ].map(({ text, Icon, key }) => (
-        <Link to="/countries" key={key}>
+        <Link to="/geodata" key={key}>
           <ListItem button>
             <ListItemIcon classes={{ root: classes.listItemIcon }}>
               <Icon />

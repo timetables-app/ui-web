@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { SET_APP_BAR_TITLE } from '../action/appBarTitle';
+import { SET_APP_BAR_TITLE } from './appBarTitleAction';
 
 const initialState = 'timetables.app';
 

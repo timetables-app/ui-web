@@ -13,7 +13,7 @@ import { Place } from '@material-ui/icons';
 import React, { FunctionComponent, useState } from 'react';
 import { Map as MapLeaflet, Marker, TileLayer } from 'react-leaflet';
 import { connect } from 'react-redux';
-import { SET_APP_BAR_TITLE } from '../../app/action/appBarTitle';
+import { setAppBarTitleActionCreator } from '../../Layout';
 
 const Map: FunctionComponent<Props> = ({ setAppBarTitle }) => {
   setAppBarTitle('Rozkłady mapa');
@@ -112,10 +112,7 @@ interface Props {
 }
 
 const mapDispatchToProps = {
-  setAppBarTitle: (appBarTitle: string) => ({
-    payload: appBarTitle,
-    type: SET_APP_BAR_TITLE
-  })
+  setAppBarTitle: setAppBarTitleActionCreator
 };
 
 export default connect(

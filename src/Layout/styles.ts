@@ -11,6 +11,12 @@ export default (theme: Theme) =>
       flexDirection: 'column',
       flexGrow: 1,
       height: '100vh'
+    },
+    progress: {
+      height: '3px',
+      position: 'fixed',
+      width: '100%',
+      zIndex: 9999
     }
   });
 
