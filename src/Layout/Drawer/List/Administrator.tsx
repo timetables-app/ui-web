@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import { Business, NearMe } from '@material-ui/icons';
 import React, { FunctionComponent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './styles';
 
 const Administrator: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
@@ -21,20 +21,40 @@ const Administrator: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
         </ListSubheader>
       )}
       {[
-        { text: 'Firmy', Icon: Business, key: 'company' },
-        { text: 'GeoDane', Icon: NearMe, key: 'place' }
-      ].map(({ text, Icon, key }) => (
-        <Link to="/geodata" key={key}>
-          <ListItem button>
-            <ListItemIcon classes={{ root: classes.listItemIcon }}>
-              <Icon />
-            </ListItemIcon>
-            <ListItemText
-              primary={text}
-              classes={{ primary: classes.listItemText }}
+        {
+          Icon: Business,
+          key: 'company',
+          link: (props: any) => (
+            <NavLink
+              to="/companies"
+              {...props}
+              activeClassName={classes.active}
             />
-          </ListItem>
-        </Link>
+          ),
+          text: 'Firmy'
+        },
+        {
+          Icon: NearMe,
+          key: 'place',
+          link: (props: any) => (
+            <NavLink
+              to="/geodata"
+              {...props}
+              activeClassName={classes.active}
+            />
+          ),
+          text: 'GeoDane'
+        }
+      ].map(({ text, Icon, key, link }) => (
+        <ListItem button component={link} key={key}>
+          <ListItemIcon classes={{ root: classes.listItemIcon }}>
+            <Icon />
+          </ListItemIcon>
+          <ListItemText
+            primary={text}
+            classes={{ primary: classes.listItemText }}
+          />
+        </ListItem>
       ))}
     </List>
   );

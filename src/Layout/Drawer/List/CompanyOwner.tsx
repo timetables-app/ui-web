@@ -14,6 +14,7 @@ import {
   Schedule
 } from '@material-ui/icons';
 import React, { FunctionComponent } from 'react';
+import { NavLink } from 'react-router-dom';
 import styles from './styles';
 
 const CompanyOwner: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
@@ -25,12 +26,52 @@ const CompanyOwner: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
         </ListSubheader>
       )}
       {[
-        { text: 'Moja firma', Icon: BusinessCenter, key: 'company' },
-        { text: 'Pojazdy', Icon: AirportShuttle, key: 'vehicle' },
-        { text: 'Linie', Icon: Gesture, key: 'line' },
-        { text: 'Rozkłady', Icon: Schedule, key: 'timetable' }
-      ].map(({ text, Icon, key }) => (
-        <ListItem button key={key}>
+        {
+          Icon: BusinessCenter,
+          key: 'company',
+          link: (props: any) => (
+            <NavLink
+              to="/my-company"
+              {...props}
+              activeClassName={classes.active}
+            />
+          ),
+          text: 'Moja firma'
+        },
+        {
+          Icon: AirportShuttle,
+          key: 'vehicle',
+          link: (props: any) => (
+            <NavLink
+              to="/vehicles"
+              {...props}
+              activeClassName={classes.active}
+            />
+          ),
+          text: 'Pojazdy'
+        },
+        {
+          Icon: Gesture,
+          key: 'line',
+          link: (props: any) => (
+            <NavLink to="/lines" {...props} activeClassName={classes.active} />
+          ),
+          text: 'Linie'
+        },
+        {
+          Icon: Schedule,
+          key: 'timetable',
+          link: (props: any) => (
+            <NavLink
+              to="/timetables"
+              {...props}
+              activeClassName={classes.active}
+            />
+          ),
+          text: 'Rozkłady'
+        }
+      ].map(({ text, Icon, key, link }) => (
+        <ListItem button component={link} key={key}>
           <ListItemIcon classes={{ root: classes.listItemIcon }}>
             <Icon />
           </ListItemIcon>

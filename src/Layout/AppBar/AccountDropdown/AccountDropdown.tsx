@@ -1,6 +1,8 @@
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import React, { useState } from 'react';
+import LogInLink from './LogInLink';
+import RegisterLink from './RegisterLink';
 
 const AccountDropdown = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLInputElement | null>(null);
@@ -32,8 +34,12 @@ const AccountDropdown = () => {
         open={!!anchorEl}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Zaloguj</MenuItem>
-        <MenuItem onClick={handleClose}>Zarejestruj</MenuItem>
+        <MenuItem onClick={handleClose} component={LogInLink}>
+          Zaloguj
+        </MenuItem>
+        <MenuItem onClick={handleClose} component={RegisterLink}>
+          Zarejestruj
+        </MenuItem>
       </Menu>
     </>
   );
