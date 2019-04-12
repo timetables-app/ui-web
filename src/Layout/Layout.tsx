@@ -1,6 +1,5 @@
 import {
   CssBaseline,
-  LinearProgress,
   MuiThemeProvider,
   WithStyles,
   withStyles
@@ -8,6 +7,7 @@ import {
 import React, { FunctionComponent, useState } from 'react';
 import AppBar from './AppBar';
 import Drawer from './Drawer';
+import LinearProgress from './LinearProgress';
 import styles from './styles';
 import theme from './theme';
 
@@ -26,7 +26,7 @@ const Layout: FunctionComponent<Props> = ({ classes, children }) => {
     <MuiThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <LinearProgress color="secondary" className={classes.progress} />
+        <LinearProgress />
         <AppBar handleDrawerOpen={handleDrawerOpen} open={open} />
         <Drawer handleDrawerClose={handleDrawerClose} open={open} />
         <main className={classes.content}>

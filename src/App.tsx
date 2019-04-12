@@ -11,7 +11,7 @@ import {
   MyCompany,
   Register
 } from './community';
-import Layout, { appBarTitleReducer } from './Layout';
+import Layout, { appBarTitleReducer, linearProgressReducer } from './Layout';
 import { GeoData, Line, Timetable, Vehicle } from './schedule';
 import { SearchMap } from './search';
 
@@ -46,7 +46,10 @@ const App = () => {
 const typedWindow = window as any;
 
 const store = createStore(
-  combineReducers({ appBarTitle: appBarTitleReducer }),
+  combineReducers({
+    appBarTitle: appBarTitleReducer,
+    linearProgress: linearProgressReducer
+  }),
   undefined,
   typeof typedWindow !== 'undefined' && typedWindow.__REDUX_DEVTOOLS_EXTENSION__
     ? typedWindow.__REDUX_DEVTOOLS_EXTENSION__()
