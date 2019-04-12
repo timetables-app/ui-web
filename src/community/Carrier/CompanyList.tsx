@@ -1,21 +1,26 @@
-import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { setAppBarTitleActionCreator } from '../../Layout';
+import React from 'react';
+import DataTable from '../../DataTable';
 
-const CompanyList: FunctionComponent<Props> = ({ setAppBarTitle }) => {
-  setAppBarTitle('Firmy');
-  return <div />;
+const List = () => {
+  return (
+      <DataTable
+          title="Firmy"
+          url="http://localhost:8080/companies"
+          columns={[
+            { name: 'id', label: 'Id' },
+            { name: 'name', label: 'Nazwa' },
+            { name: 'phone', label: 'Telefon' },
+            { name: 'founded', label: 'Założona w' },
+            { name: 'registered', label: 'Zarejestrowana w' },
+            { name: 'approved', label: 'Zatwierdzona' },
+          ]}
+          dataAdapter={adapter}
+          pageDataAdapter={pageAdapter}
+      />
+  );
 };
 
-interface Props {
-  setAppBarTitle: (appBarTitle: string) => void;
-}
+const adapter = (data: any) => data.content;
+const pageAdapter = (data: any) => data.totalElements;
 
-const mapDispatchToProps = {
-  setAppBarTitle: setAppBarTitleActionCreator
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(CompanyList);
+export default List;

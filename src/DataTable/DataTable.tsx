@@ -15,6 +15,7 @@ const DataTable: FunctionComponent<Props> = ({
   decrementProgress,
   title,
   dataAdapter,
+  pageDataAdapter,
   url,
   columns
 }) => {
@@ -56,7 +57,7 @@ const DataTable: FunctionComponent<Props> = ({
         params: { size, page, sort }
       })
       .then(response => {
-        setRowsCount(response.data.page.totalElements);
+        setRowsCount(pageDataAdapter ? pageDataAdapter(response.data) : response.data.page.totalElements);
         setData(dataAdapter(response.data));
       })
       .finally(decrementProgress);
@@ -94,6 +95,7 @@ interface Props {
   title: string;
   columns: MUIDataTableColumnDef[];
   dataAdapter: (data: any) => never[];
+  pageDataAdapter?: (data: any) => never[];
   url: string;
 }
 
