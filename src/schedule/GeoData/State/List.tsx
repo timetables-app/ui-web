@@ -9,7 +9,7 @@ const List: FunctionComponent<{}> = () => {
     <>
       <div style={{ padding: 24 }}>
         <MuiDataTable
-          title="Kraje"
+          title="Województwa"
           columns={[
             { name: 'id', label: 'Id' },
             { name: 'iso', label: 'Iso' },
