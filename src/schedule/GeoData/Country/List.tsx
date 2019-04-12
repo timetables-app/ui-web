@@ -11,8 +11,11 @@ const List = () => {
         { name: 'iso3', label: 'Iso3' },
         { name: 'name', label: 'Nazwa' }
       ]}
+      dataAdapter={adapter}
     />
   );
 };
+
+const adapter = (data: any) => data._embedded.countries;
 
 export default List;

@@ -1,7 +1,7 @@
 import { IconButton, Tooltip } from '@material-ui/core';
 import { BugReport } from '@material-ui/icons';
 import axios from 'axios';
-import MuiDataTable from 'mui-datatables';
+import MuiDataTable, { MUIDataTableColumnDef } from 'mui-datatables';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import i18n from '../i18n';
@@ -14,6 +14,7 @@ const DataTable: FunctionComponent<Props> = ({
   incrementProgress,
   decrementProgress,
   title,
+  dataAdapter,
   url,
   columns
 }) => {
@@ -55,8 +56,8 @@ const DataTable: FunctionComponent<Props> = ({
         params: { size, page, sort }
       })
       .then(response => {
-        setData(response.data._embedded.countries);
         setRowsCount(response.data.page.totalElements);
+        setData(dataAdapter(response.data));
       })
       .finally(decrementProgress);
   };
@@ -70,20 +71,13 @@ const DataTable: FunctionComponent<Props> = ({
           data={data}
           options={{
             count: rowsCount,
-            customToolbarSelect: () => (
-              <Tooltip title="Oznacz jako nieaktualne">
-                <IconButton>
-                  <BugReport />
-                </IconButton>
-              </Tooltip>
-            ),
             download: false,
             elevation: 1,
-            filterType: 'textField',
+            filter: false,
             onTableChange,
             print: false,
             responsive: 'scroll',
-            search: false,
+            selectableRows: false,
             serverSide: true,
             textLabels: i18n.pl.dataTables,
             viewColumns: false
@@ -98,7 +92,8 @@ interface Props {
   decrementProgress: () => void;
   incrementProgress: () => void;
   title: string;
-  columns: any[];
+  columns: MUIDataTableColumnDef[];
+  dataAdapter: (data: any) => never[];
   url: string;
 }
 
