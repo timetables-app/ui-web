@@ -1,7 +1,11 @@
 import { AppBar, Tab, Tabs } from '@material-ui/core';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
-const GeoData = () => {
+const GeoData: FunctionComponent<RouteComponentProps<{}>> = ({
+  location: { pathname }
+}) => {
   return (
     <AppBar
       position="static"
@@ -10,20 +14,29 @@ const GeoData = () => {
       style={{ marginTop: '-8px' }}
     >
       <Tabs
-        value={0}
+        value={pathname}
         indicatorColor="primary"
         textColor="primary"
         variant="scrollable"
         scrollButtons="auto"
       >
-        <Tab label="Miejsca" />
-        <Tab label="Miejscowości" />
-        <Tab label="Powiaty" />
-        <Tab label="Województwa" />
-        <Tab label="Kraje" />
+        {[
+          { label: 'Miejsca', to: '/geodata' },
+          { label: 'Miejscowości', to: '/geodata/localities' },
+          { label: 'Powiaty', to: '/geodata/regions' },
+          { label: 'Województwa', to: '/geodata/states' },
+          { label: 'Kraje', to: '/geodata/countries' }
+        ].map(({ label, to }, idx) => (
+          <Tab
+            key={idx}
+            label={label}
+            value={to}
+            {...{ component: Link, to } as any}
+          />
+        ))}
       </Tabs>
     </AppBar>
   );
 };
 
-export default GeoData;
+export default withRouter(GeoData);

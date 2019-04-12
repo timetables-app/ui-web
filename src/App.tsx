@@ -35,7 +35,7 @@ const App = () => {
             <Route path="/timetables" exact component={Timetable} />
 
             <Route path="/companies" exact component={CompanyList} />
-            <Route path="/geodata" exact component={GeoData} />
+            <Route path="/geodata" component={GeoData} />
           </Switch>
         </Layout>
       </BrowserRouter>

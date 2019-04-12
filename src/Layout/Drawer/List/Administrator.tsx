@@ -1,15 +1,7 @@
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  withStyles,
-  WithStyles
-} from '@material-ui/core';
+import { List, ListSubheader, withStyles, WithStyles } from '@material-ui/core';
 import { Business, NearMe } from '@material-ui/icons';
 import React, { FunctionComponent } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import ListItem from './ListItem';
 import styles from './styles';
 
 const Administrator: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
@@ -23,38 +15,16 @@ const Administrator: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
       {[
         {
           Icon: Business,
-          key: 'company',
-          link: (props: any) => (
-            <NavLink
-              to="/companies"
-              {...props}
-              activeClassName={classes.active}
-            />
-          ),
-          text: 'Firmy'
+          text: 'Firmy',
+          to: '/companies'
         },
         {
           Icon: NearMe,
-          key: 'place',
-          link: (props: any) => (
-            <NavLink
-              to="/geodata"
-              {...props}
-              activeClassName={classes.active}
-            />
-          ),
-          text: 'GeoDane'
+          text: 'GeoDane',
+          to: '/geodata'
         }
-      ].map(({ text, Icon, key, link }) => (
-        <ListItem button component={link} key={key}>
-          <ListItemIcon classes={{ root: classes.listItemIcon }}>
-            <Icon />
-          </ListItemIcon>
-          <ListItemText
-            primary={text}
-            classes={{ primary: classes.listItemText }}
-          />
-        </ListItem>
+      ].map((props, idx) => (
+        <ListItem key={idx} {...props} />
       ))}
     </List>
   );

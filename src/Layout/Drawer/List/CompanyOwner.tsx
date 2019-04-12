@@ -1,12 +1,4 @@
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  withStyles,
-  WithStyles
-} from '@material-ui/core';
+import { List, ListSubheader, withStyles, WithStyles } from '@material-ui/core';
 import {
   AirportShuttle,
   BusinessCenter,
@@ -14,7 +6,7 @@ import {
   Schedule
 } from '@material-ui/icons';
 import React, { FunctionComponent } from 'react';
-import { NavLink } from 'react-router-dom';
+import ListItem from './ListItem';
 import styles from './styles';
 
 const CompanyOwner: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
@@ -28,58 +20,26 @@ const CompanyOwner: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
       {[
         {
           Icon: BusinessCenter,
-          key: 'company',
-          link: (props: any) => (
-            <NavLink
-              to="/my-company"
-              {...props}
-              activeClassName={classes.active}
-            />
-          ),
-          text: 'Moja firma'
+          text: 'Moja firma',
+          to: '/my-company'
         },
         {
           Icon: AirportShuttle,
-          key: 'vehicle',
-          link: (props: any) => (
-            <NavLink
-              to="/vehicles"
-              {...props}
-              activeClassName={classes.active}
-            />
-          ),
-          text: 'Pojazdy'
+          text: 'Pojazdy',
+          to: '/vehicles'
         },
         {
           Icon: Gesture,
-          key: 'line',
-          link: (props: any) => (
-            <NavLink to="/lines" {...props} activeClassName={classes.active} />
-          ),
-          text: 'Linie'
+          text: 'Linie',
+          to: '/lines'
         },
         {
           Icon: Schedule,
-          key: 'timetable',
-          link: (props: any) => (
-            <NavLink
-              to="/timetables"
-              {...props}
-              activeClassName={classes.active}
-            />
-          ),
-          text: 'Rozkłady'
+          text: 'Rozkłady',
+          to: '/timetables'
         }
-      ].map(({ text, Icon, key, link }) => (
-        <ListItem button component={link} key={key}>
-          <ListItemIcon classes={{ root: classes.listItemIcon }}>
-            <Icon />
-          </ListItemIcon>
-          <ListItemText
-            primary={text}
-            classes={{ primary: classes.listItemText }}
-          />
-        </ListItem>
+      ].map((props, idx) => (
+        <ListItem key={idx} {...props} />
       ))}
     </List>
   );
