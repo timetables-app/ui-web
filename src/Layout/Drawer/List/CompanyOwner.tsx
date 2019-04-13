@@ -23,11 +23,11 @@ const CompanyOwner: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
           text: 'Moja firma',
           to: '/my-company'
         },
-        {
-          Icon: AirportShuttle,
-          text: 'Pojazdy',
-          to: '/vehicles'
-        },
+        // {
+        //   Icon: AirportShuttle,
+        //   text: 'Pojazdy',
+        //   to: '/vehicles'
+        // },
         {
           Icon: Gesture,
           text: 'Linie',

@@ -17,22 +17,22 @@ const Anonymous = () => {
           exact: true,
           text: 'Rozkłady',
           to: '/'
-        },
-        {
-          Icon: ErrorOutline,
-          text: 'Utrudnienia',
-          to: '/impediments'
-        },
-        {
-          Icon: Commute,
-          text: 'Przewoźnicy',
-          to: '/carriers'
-        },
-        {
-          Icon: TrackChanges,
-          text: 'Zgubione',
-          to: '/lost-and-found'
         }
+        // {
+        //   Icon: ErrorOutline,
+        //   text: 'Utrudnienia',
+        //   to: '/impediments'
+        // },
+        // {
+        //   Icon: Commute,
+        //   text: 'Przewoźnicy',
+        //   to: '/carriers'
+        // },
+        // {
+        //   Icon: TrackChanges,
+        //   text: 'Zgubione',
+        //   to: '/lost-and-found'
+        // }
       ].map((props, idx) => (
         <ListItem key={idx} {...props} />
       ))}

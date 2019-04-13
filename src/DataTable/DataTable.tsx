@@ -32,7 +32,8 @@ const DataTable: FunctionComponent<Props> = ({
     fetchData(
       typedTableState.rowsPerPage,
       typedTableState.page,
-      sort.length ? sort[0] : undefined
+      sort.length ? sort[0] : undefined,
+      typedTableState.searchText
     );
   };
 
@@ -40,6 +41,7 @@ const DataTable: FunctionComponent<Props> = ({
     rowsPerPage: number;
     page: number;
     columns: TableStateColumn[];
+    searchText?: string;
   }
 
   interface TableStateColumn {
@@ -48,11 +50,11 @@ const DataTable: FunctionComponent<Props> = ({
     sortDirection: string;
   }
 
-  const fetchData = (size: number, page: number, sort?: string) => {
+  const fetchData = (size: number, page: number, sort?: string, q?: string) => {
     incrementProgress();
     axios
-      .get(url, {
-        params: { size, page, sort }
+      .get(q ? `${url}/search/q` : url, {
+        params: { size, page, sort, q }
       })
       .then(response => {
         setRowsCount(
