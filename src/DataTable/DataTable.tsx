@@ -1,5 +1,3 @@
-import { IconButton, Tooltip } from '@material-ui/core';
-import { BugReport } from '@material-ui/icons';
 import axios from 'axios';
 import MuiDataTable, { MUIDataTableColumnDef } from 'mui-datatables';
 import React, { FunctionComponent, useEffect, useState } from 'react';
@@ -57,7 +55,11 @@ const DataTable: FunctionComponent<Props> = ({
         params: { size, page, sort }
       })
       .then(response => {
-        setRowsCount(pageDataAdapter ? pageDataAdapter(response.data) : response.data.page.totalElements);
+        setRowsCount(
+          pageDataAdapter
+            ? pageDataAdapter(response.data)
+            : response.data.page.totalElements
+        );
         setData(dataAdapter(response.data));
       })
       .finally(decrementProgress);
