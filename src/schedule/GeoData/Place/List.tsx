@@ -8,10 +8,10 @@ const List = () => {
       url="http://localhost:8080/places"
       columns={[
         { name: 'name', label: 'Nazwa' },
-        { name: 'locality', label: 'Miejscowość' },
-        { name: 'region', label: 'Powiat' },
-        { name: 'state', label: 'Województwo' },
-        { name: 'country', label: 'Kraj' }
+        { name: 'locality', label: 'Miejscowość', options: { sort: false } },
+        { name: 'region', label: 'Powiat', options: { sort: false } },
+        { name: 'state', label: 'Województwo', options: { sort: false } },
+        { name: 'country', label: 'Kraj', options: { sort: false } }
       ]}
       dataAdapter={adapter}
     />

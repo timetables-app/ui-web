@@ -8,9 +8,9 @@ const List = () => {
       url="http://localhost:8080/localities"
       columns={[
         { name: 'name', label: 'Nazwa' },
-        { name: 'region', label: 'Powiat' },
-        { name: 'state', label: 'Województwo' },
-        { name: 'country', label: 'Kraj' }
+        { name: 'region', label: 'Powiat', options: { sort: false } },
+        { name: 'state', label: 'Województwo', options: { sort: false } },
+        { name: 'country', label: 'Kraj', options: { sort: false } }
       ]}
       dataAdapter={adapter}
     />

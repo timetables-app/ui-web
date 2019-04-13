@@ -9,8 +9,8 @@ const List = () => {
       columns={[
         { name: 'name', label: 'Nazwa' },
         { name: 'code', label: 'Kod' },
-        { name: 'state', label: 'Województwo' },
-        { name: 'country', label: 'Kraj' }
+        { name: 'state', label: 'Województwo', options: { sort: false } },
+        { name: 'country', label: 'Kraj', options: { sort: false } }
       ]}
       dataAdapter={adapter}
     />

@@ -9,7 +9,7 @@ const List = () => {
       columns={[
         { name: 'name', label: 'Nazwa' },
         { name: 'code', label: 'Kod' },
-        { name: 'country', label: 'Kraj' }
+        { name: 'country', label: 'Kraj', options: { sort: false } }
       ]}
       dataAdapter={adapter}
     />
