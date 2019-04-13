@@ -8,6 +8,7 @@ const List = () => {
       url="http://localhost:8080/places"
       columns={[
         { name: 'name', label: 'Nazwa' },
+        { name: 'locality', label: 'Miejscowość' },
         { name: 'region', label: 'Powiat' },
         { name: 'state', label: 'Województwo' },
         { name: 'country', label: 'Kraj' }
