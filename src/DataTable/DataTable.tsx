@@ -1,6 +1,11 @@
 import axios from 'axios';
 import MuiDataTable, { MUIDataTableColumnDef } from 'mui-datatables';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, {
+  FunctionComponent,
+  ReactNode,
+  useEffect,
+  useState
+} from 'react';
 import { connect } from 'react-redux';
 import i18n from '../i18n';
 import {
@@ -15,7 +20,8 @@ const DataTable: FunctionComponent<Props> = ({
   dataAdapter,
   pageDataAdapter,
   url,
-  columns
+  columns,
+  customToolbar
 }) => {
   const [data, setData] = useState([]);
   const [rowsCount, setRowsCount] = useState(0);
@@ -76,6 +82,7 @@ const DataTable: FunctionComponent<Props> = ({
           data={data}
           options={{
             count: rowsCount,
+            customToolbar,
             download: false,
             elevation: 1,
             filter: false,
@@ -96,6 +103,7 @@ const DataTable: FunctionComponent<Props> = ({
 interface Props {
   decrementProgress: () => void;
   incrementProgress: () => void;
+  customToolbar?: () => ReactNode;
   title: string;
   columns: MUIDataTableColumnDef[];
   dataAdapter: (data: any) => never[];

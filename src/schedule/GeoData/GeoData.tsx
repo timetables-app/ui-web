@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { setAppBarTitleActionCreator } from '../../Layout';
 import { CountryList } from './Country';
 import { LocalityList } from './Locality';
-import { PlaceList } from './Place';
+import { PlaceCreate, PlaceList } from './Place';
 import { RegionList } from './Region';
 import { StateList } from './State';
 
@@ -49,6 +49,7 @@ const GeoData: FunctionComponent<Props> = ({
       </AppBar>
       <Switch>
         <Route component={PlaceList} exact path="/geodata" />
+        <Route component={PlaceCreate} exact path="/geodata/places/new" />
         <Route component={LocalityList} exact path="/geodata/localities" />
         <Route component={RegionList} exact path="/geodata/regions" />
         <Route component={StateList} exact path="/geodata/states" />
