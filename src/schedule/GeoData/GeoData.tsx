@@ -1,7 +1,13 @@
 import { AppBar, Tab, Tabs } from '@material-ui/core';
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import { Route, RouteComponentProps, Switch, withRouter } from 'react-router';
+import {
+  Redirect,
+  Route,
+  RouteComponentProps,
+  Switch,
+  withRouter
+} from 'react-router';
 import { Link } from 'react-router-dom';
 import { setAppBarTitleActionCreator } from '../../Layout';
 import { CountryList } from './Country';
@@ -25,14 +31,14 @@ const GeoData: FunctionComponent<Props> = ({
         style={{ marginTop: '-8px' }}
       >
         <Tabs
-          value={pathname}
+          value={normalizePathname(pathname)}
           indicatorColor="primary"
           textColor="primary"
           variant="scrollable"
           scrollButtons="auto"
         >
           {[
-            { label: 'Miejsca', to: '/geodata' },
+            { label: 'Miejsca', to: '/geodata/places' },
             { label: 'Miejscowości', to: '/geodata/localities' },
             { label: 'Powiaty', to: '/geodata/regions' },
             { label: 'Województwa', to: '/geodata/states' },
@@ -48,7 +54,8 @@ const GeoData: FunctionComponent<Props> = ({
         </Tabs>
       </AppBar>
       <Switch>
-        <Route component={PlaceList} exact path="/geodata" />
+        <Redirect from="/geodata" to="/geodata/places" exact />
+        <Route component={PlaceList} exact path="/geodata/places" />
         <Route component={PlaceCreate} exact path="/geodata/places/new" />
         <Route component={LocalityList} exact path="/geodata/localities" />
         <Route component={RegionList} exact path="/geodata/regions" />
@@ -57,6 +64,15 @@ const GeoData: FunctionComponent<Props> = ({
       </Switch>
     </>
   );
+};
+
+const normalizePathname = (pathname: string) => {
+  const splitted = pathname.split('/');
+  if (splitted.length < 3) {
+    return '/geodata/places';
+  }
+
+  return splitted.slice(0, 3).join('/');
 };
 
 interface Props extends RouteComponentProps<{}> {
