@@ -24,7 +24,7 @@ const AutocompletePopper: FunctionComponent<Props> = ({
   }, [inputValue]);
 
   return (
-    <Popper open={isOpen} anchorEl={popperNode} style={{ zIndex: 1 }}>
+    <Popper open={isOpen} anchorEl={popperNode} style={{ zIndex: 1 }} modifiers={{flip:{enabled:true}}}>
       <div {...(isOpen ? getMenuProps({}, { suppressRefError: true }) : {})}>
         <Paper
           square
