@@ -5,14 +5,10 @@ import {
   CardContent,
   CardHeader,
   Grid,
-  MenuItem,
-  OutlinedInput,
-  Paper,
-  Popper,
   TextField
 } from '@material-ui/core';
-import * as React from 'react';
-import Downshift from 'downshift';
+import React from 'react';
+import Autocomplete from '../../../Autocomplete';
 
 const Create = () => {
   return (
@@ -42,60 +38,7 @@ const Create = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField variant="outlined" fullWidth label="Miejscowość" />
-
-                <Downshift id="downshift-popper">
-                  {({
-                    getInputProps,
-                    getItemProps,
-                    getMenuProps,
-                    highlightedIndex,
-                    inputValue,
-                    isOpen,
-                    selectedItem
-                  }) => (
-                    <div className={classes.container}>
-                      {renderInput({
-                        fullWidth: true,
-                        classes,
-                        InputProps: getInputProps({
-                          placeholder: 'With Popper'
-                        }),
-                        ref: node => {
-                          popperNode = node;
-                        }
-                      })}
-                      <Popper open={isOpen} anchorEl={popperNode}>
-                        <div
-                          {...(isOpen
-                            ? getMenuProps({}, { suppressRefError: true })
-                            : {})}
-                        >
-                          <Paper
-                            square
-                            style={{
-                              marginTop: 8,
-                              width: popperNode ? popperNode.clientWidth : null
-                            }}
-                          >
-                            {getSuggestions(inputValue).map(
-                              (suggestion, index) =>
-                                renderSuggestion({
-                                  suggestion,
-                                  index,
-                                  itemProps: getItemProps({
-                                    item: suggestion.label
-                                  }),
-                                  highlightedIndex,
-                                  selectedItem
-                                })
-                            )}
-                          </Paper>
-                        </div>
-                      </Popper>
-                    </div>
-                  )}
-                </Downshift>
+                <Autocomplete />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -128,48 +71,5 @@ const Create = () => {
     </Grid>
   );
 };
-
-function renderInput(inputProps) {
-  const { InputProps, classes, ref, ...other } = inputProps;
-
-  return (
-    <TextField
-      InputProps={{
-        inputRef: ref,
-        classes: {
-          root: classes.inputRoot,
-          input: classes.inputInput
-        },
-        ...InputProps
-      }}
-      {...other}
-    />
-  );
-}
-
-function renderSuggestion({
-  suggestion,
-  index,
-  itemProps,
-  highlightedIndex,
-  selectedItem
-}) {
-  const isHighlighted = highlightedIndex === index;
-  const isSelected = (selectedItem || '').indexOf(suggestion.label) > -1;
-
-  return (
-    <MenuItem
-      {...itemProps}
-      key={suggestion.label}
-      selected={isHighlighted}
-      component="div"
-      style={{
-        fontWeight: isSelected ? 500 : 400
-      }}
-    >
-      {suggestion.label}
-    </MenuItem>
-  );
-}
 
 export default Create;
