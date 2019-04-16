@@ -1221,6 +1221,14 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/redux-form@^8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@types/redux-form/-/redux-form-8.1.1.tgz#88b743d8bbbc67e45548e67f4260c0db00cf74dc"
+  integrity sha512-SSGLnNCoq4BXVs+lex71AwLH7PsEn5fxmiQW1ymvpWe+17uDTHdWfaplY/Vn0+J11XsxNqWMsDhxlVXuq65V6w==
+  dependencies:
+    "@types/react" "*"
+    redux "^3.6.0 || ^4.0.0"
+
 "@types/tapable@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.2.tgz#e13182e1b69871a422d7863e11a4a6f5b814a4bd"
@@ -8871,7 +8879,7 @@ redux-saga@^1.0.2:
   dependencies:
     "@redux-saga/core" "^1.0.2"
 
-"redux@>=0.10 <5", redux@^4.0.0, redux@^4.0.1:
+"redux@>=0.10 <5", "redux@^3.6.0 || ^4.0.0", redux@^4.0.0, redux@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
   integrity sha512-R7bAtSkk7nY6O/OYMVR9RiBI+XghjF9rlbl5806HJbQph0LJVHZrU5oaO4q70eUKiqMRqm4y07KLTlMZ2BlVmg==

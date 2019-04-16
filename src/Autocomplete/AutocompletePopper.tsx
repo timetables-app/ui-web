@@ -4,7 +4,7 @@ import axios from 'axios';
 import {
   decrementProgressActionCreator,
   incrementProgressActionCreator
-} from '../Layout/LinearProgress';
+} from '../Layout';
 import { connect } from 'react-redux';
 
 const AutocompletePopper: FunctionComponent<Props> = ({
@@ -18,13 +18,18 @@ const AutocompletePopper: FunctionComponent<Props> = ({
   incrementProgress,
   decrementProgress
 }) => {
-  const [suggestions, setSuggestions] = useState<Suggestions[]>([]);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   useEffect(() => {
     fetchData(incrementProgress, decrementProgress, inputValue, setSuggestions);
   }, [inputValue]);
 
   return (
-    <Popper open={isOpen} anchorEl={popperNode} style={{ zIndex: 1 }} modifiers={{flip:{enabled:true}}}>
+    <Popper
+      open={isOpen}
+      anchorEl={popperNode}
+      style={{ zIndex: 1 }}
+      modifiers={{ flip: { enabled: true } }}
+    >
       <div {...(isOpen ? getMenuProps({}, { suppressRefError: true }) : {})}>
         <Paper
           square
@@ -38,7 +43,7 @@ const AutocompletePopper: FunctionComponent<Props> = ({
               highlightedIndex,
               index,
               itemProps: getItemProps({
-                item: suggestion.label
+                item: suggestion
               }),
               selectedItem,
               suggestion
@@ -62,10 +67,6 @@ interface Props {
   incrementProgress: () => void;
 }
 
-interface Suggestions {
-  label: string;
-}
-
 function renderSuggestion({
   suggestion,
   index,
@@ -74,7 +75,7 @@ function renderSuggestion({
   selectedItem
 }: any) {
   const isHighlighted = highlightedIndex === index;
-  const isSelected = (selectedItem || '').indexOf(suggestion.label) > -1;
+  const isSelected = false; // (selectedItem.label || '').indexOf(suggestion.label) > -1;
 
   return (
     <MenuItem
@@ -95,7 +96,7 @@ const fetchData = (
   incrementProgress: any,
   decrementProgress: any,
   q: string,
-  setSuggestions: (suggestions: Suggestions[]) => void
+  setSuggestions: (suggestions: Suggestion[]) => void
 ) => {
   incrementProgress();
   return axios
@@ -114,6 +115,11 @@ const fetchData = (
     })
     .finally(decrementProgress);
 };
+
+export interface Suggestion {
+  label: string;
+  value: string;
+}
 
 const mapDispatchToProps = {
   decrementProgress: decrementProgressActionCreator,

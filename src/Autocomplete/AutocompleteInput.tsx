@@ -1,55 +1,48 @@
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import React, { FunctionComponent } from 'react';
+import { TextFieldRendererProps } from '../schedule/GeoData/Place/Create';
 
 const AutocompleteInput: FunctionComponent<Props> = ({
-  refx,
+  inputRef,
   InputProps,
-  reset,
-  clearSelection
+  resetInput,
+  fieldProps: {
+    label,
+    input,
+    meta: { touched, invalid, error },
+    ...custom
+  }
 }) => {
   return (
-    <div ref={refx}>
+    <div ref={inputRef}>
       <TextField
         InputProps={{
-          endAdornment: Adornment(InputProps.value, reset, clearSelection),
+          endAdornment: InputProps.value && (
+            <InputAdornment position="end">
+              <IconButton onClick={resetInput}>
+                <Close />
+              </IconButton>
+            </InputAdornment>
+          ),
           ...InputProps
         }}
-        variant="outlined"
-        label="Miejscowość"
-        fullWidth
+        label={label}
+        placeholder={label}
+        error={touched && invalid}
+        helperText={touched && error}
+        {...input}
+        {...custom}
       />
     </div>
   );
 };
 
-const Adornment = (
-  value: string,
-  reset: () => void,
-  clearSelection: () => void
-) => {
-  if (!value) {
-    return null;
-  }
-  return (
-    <InputAdornment position="end">
-      <IconButton
-        onClick={() => {
-          reset();
-          clearSelection();
-        }}
-      >
-        <Close />
-      </IconButton>
-    </InputAdornment>
-  );
-};
-
 interface Props {
   InputProps: any;
-  reset: any;
-  clearSelection: any;
-  refx: any;
+  resetInput: () => void;
+  inputRef: (ref: HTMLDivElement | null) => void;
+  fieldProps: TextFieldRendererProps;
 }
 
 export default AutocompleteInput;

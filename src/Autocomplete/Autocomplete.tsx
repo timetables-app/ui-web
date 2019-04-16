@@ -1,19 +1,22 @@
-import {
-  MenuItem,
-  Paper,
-  Popper,
-  withStyles,
-  WithStyles
-} from '@material-ui/core';
+import { withStyles, WithStyles } from '@material-ui/core';
 import Downshift from 'downshift';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, RefObject, useState } from 'react';
+import { TextFieldRendererProps } from '../schedule/GeoData/Place/Create';
 import AutocompleteInput from './AutocompleteInput';
+import AutocompletePopper, { Suggestion } from './AutocompletePopper';
 import styles from './styles';
-import AutocompletePopper from './AutocompletePopper';
 
-const Autocomplete: FunctionComponent<Props> = ({ classes }) => {
+const Autocomplete: FunctionComponent<Props> = ({ classes, fieldProps }) => {
+  const onChange = (v: Suggestion | null) =>
+    fieldProps.input.onChange(v ? v.value : v);
+
+  const itemToString = (v: Suggestion | string | null) =>
+    typeof v === 'object' ? (v ? v.label : '') : v;
+
+  const [inputRef, setInputRef] = useState<HTMLDivElement | null>(null);
+
   return (
-    <Downshift>
+    <Downshift onChange={onChange} itemToString={itemToString}>
       {({
         getInputProps,
         getItemProps,
@@ -25,15 +28,18 @@ const Autocomplete: FunctionComponent<Props> = ({ classes }) => {
         reset,
         clearSelection
       }: any) => {
+        const resetInput = () => {
+          reset();
+          clearSelection();
+        };
+
         return (
           <div className={classes.container}>
             <AutocompleteInput
-              reset={reset}
-              clearSelection={clearSelection}
+              resetInput={resetInput}
               InputProps={getInputProps()}
-              refx={(node: any) => {
-                popperNode = node;
-              }}
+              fieldProps={fieldProps}
+              inputRef={setInputRef}
             />
             <AutocompletePopper
               getItemProps={getItemProps}
@@ -41,7 +47,7 @@ const Autocomplete: FunctionComponent<Props> = ({ classes }) => {
               highlightedIndex={highlightedIndex}
               inputValue={inputValue}
               isOpen={isOpen}
-              popperNode={popperNode}
+              popperNode={inputRef}
               selectedItem={selectedItem}
             />
           </div>
@@ -51,8 +57,8 @@ const Autocomplete: FunctionComponent<Props> = ({ classes }) => {
   );
 };
 
-interface Props extends WithStyles<typeof styles> {}
-
-let popperNode: any;
+interface Props extends WithStyles<typeof styles> {
+  fieldProps: TextFieldRendererProps;
+}
 
 export default withStyles(styles, { withTheme: true })(Autocomplete);

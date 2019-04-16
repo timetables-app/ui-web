@@ -7,10 +7,20 @@ import {
   Grid,
   TextField
 } from '@material-ui/core';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import {
+  Field,
+  FormSubmitHandler,
+  InjectedFormProps,
+  reduxForm,
+  SubmissionError,
+  WrappedFieldProps
+} from 'redux-form';
 import Autocomplete from '../../../Autocomplete';
 
-const Create = () => {
+const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
+  handleSubmit
+}) => {
   return (
     <Grid container style={{ padding: 24 }}>
       <Grid item xs={12} lg={6}>
@@ -22,11 +32,13 @@ const Create = () => {
                 <TextField variant="outlined" fullWidth label="Nazwa" />
               </Grid>
               <Grid item xs={12} md={6}>
-                <TextField
+                <Field
+                  name="lat"
                   variant="outlined"
                   fullWidth
                   label="Szerokość geog."
                   type="number"
+                  component={renderTextField}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -38,7 +50,13 @@ const Create = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Autocomplete />
+                <Field
+                  name="locality"
+                  variant="outlined"
+                  label="Miejscowość"
+                  fullWidth
+                  component={renderAutocompleteField}
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -61,7 +79,7 @@ const Create = () => {
             </Grid>
           </CardContent>
           <CardActions>
-            <Button color="primary" variant="outlined">
+            <Button color="primary" variant="outlined" onClick={handleSubmit}>
               Zapisz
             </Button>
             <Button variant="outlined">Anuluj</Button>
@@ -72,4 +90,37 @@ const Create = () => {
   );
 };
 
-export default Create;
+const renderTextField = ({
+  label,
+  input,
+  meta: { touched, invalid, error },
+  ...custom
+}: TextFieldRendererProps) => (
+  <TextField
+    label={label}
+    placeholder={label}
+    error={touched && invalid}
+    helperText={touched && error}
+    {...input}
+    {...custom}
+  />
+);
+
+const renderAutocompleteField = (fieldProps: TextFieldRendererProps) => (
+  <Autocomplete fieldProps={fieldProps} />
+);
+
+export interface TextFieldRendererProps extends WrappedFieldProps {
+  label: string;
+}
+
+const formSubmitHandler: FormSubmitHandler = values => {
+  throw new SubmissionError({
+    lat: 'Niepoprawna szerokość geo.',
+    locality: 'Miejscowość jest wymagana'
+  });
+};
+
+export default reduxForm({ form: 'place-create', onSubmit: formSubmitHandler })(
+  Create
+);
