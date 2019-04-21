@@ -55,6 +55,7 @@ const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
               </Grid>
               <Grid item xs={12}>
                 <AutocompleteField
+                  fetchSuggestions={fetchData}
                   name="locality"
                   variant="outlined"
                   label="Miejscowość"
@@ -111,6 +112,23 @@ const formSubmitHandler: FormSubmitHandler = values => {
     .catch(err => {
       throw new SubmissionError(err.response.data);
     });
+};
+
+const fetchData = (q: string) => {
+  // incrementProgress();
+  return axios
+    .get('http://localhost:8080/localities/search/q', {
+      params: { q, size: 5 }
+    })
+    .then(response => {
+      return response.data._embedded.localities.map((locality: any) => ({
+        label: `${locality.name}, ${locality.region}, ${locality.state}, ${
+          locality.country
+        }`,
+        value: locality._links.self.href
+      }));
+    });
+  // .finally(decrementProgress);
 };
 
 export default reduxForm({ form: 'place-create', onSubmit: formSubmitHandler })(

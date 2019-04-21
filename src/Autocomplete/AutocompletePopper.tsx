@@ -1,28 +1,16 @@
 import { MenuItem, Paper, Popper } from '@material-ui/core';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import axios from 'axios';
-import {
-  decrementProgressActionCreator,
-  incrementProgressActionCreator
-} from '../Layout';
-import { connect } from 'react-redux';
+import React, { FunctionComponent } from 'react';
+import { Suggestion } from './types';
 
 const AutocompletePopper: FunctionComponent<Props> = ({
   popperNode,
   getMenuProps,
-  inputValue,
   highlightedIndex,
   getItemProps,
   selectedItem,
   isOpen,
-  incrementProgress,
-  decrementProgress
+  suggestions
 }) => {
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-  useEffect(() => {
-    fetchData(incrementProgress, decrementProgress, inputValue, setSuggestions);
-  }, [inputValue]);
-
   return (
     <Popper
       open={isOpen}
@@ -58,13 +46,11 @@ const AutocompletePopper: FunctionComponent<Props> = ({
 interface Props {
   popperNode: any;
   getMenuProps: any;
-  inputValue: any;
   highlightedIndex: any;
   getItemProps: any;
   selectedItem: any;
   isOpen: any;
-  decrementProgress: () => void;
-  incrementProgress: () => void;
+  suggestions: Suggestion[];
 }
 
 function renderSuggestion({
@@ -92,41 +78,4 @@ function renderSuggestion({
   );
 }
 
-const fetchData = (
-  incrementProgress: any,
-  decrementProgress: any,
-  q: string,
-  setSuggestions: (suggestions: Suggestion[]) => void
-) => {
-  incrementProgress();
-  return axios
-    .get('http://localhost:8080/localities/search/q', {
-      params: { q, size: 5 }
-    })
-    .then(response => {
-      setSuggestions(
-        response.data._embedded.localities.map((locality: any) => ({
-          label: `${locality.name}, ${locality.region}, ${locality.state}, ${
-            locality.country
-          }`,
-          value: locality._links.self.href
-        }))
-      );
-    })
-    .finally(decrementProgress);
-};
-
-export interface Suggestion {
-  label: string;
-  value: string;
-}
-
-const mapDispatchToProps = {
-  decrementProgress: decrementProgressActionCreator,
-  incrementProgress: incrementProgressActionCreator
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(AutocompletePopper);
+export default AutocompletePopper;

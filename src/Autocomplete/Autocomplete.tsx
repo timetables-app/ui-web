@@ -5,30 +5,42 @@ import Downshift, { Actions, DownshiftProps, PropGetters } from 'downshift';
 import React, { FunctionComponent, useState } from 'react';
 import { WrappedFieldInputProps } from 'redux-form';
 import AutocompleteInput from './AutocompleteInput';
-import AutocompletePopper, { Suggestion } from './AutocompletePopper';
+import AutocompletePopper from './AutocompletePopper';
 import styles from './styles';
+import { Suggestion, SuggestionsFetcher } from './types';
 
 const Autocomplete: FunctionComponent<Props> = ({
   classes,
   muiProps,
-  reduxFormProps
+  reduxFormProps,
+  fetchSuggestions
 }) => {
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [inputRef, setInputRef] = useState<HTMLDivElement | null>(null);
+
   const onChange = (v: Suggestion | null) =>
     reduxFormProps.onChange(v ? v.value : v);
+
+  const onInputValueChange = (v: string) => {
+    if (v) {
+      fetchSuggestions(v).then(setSuggestions);
+    }
+  };
 
   const itemToString = (v: Suggestion | string | null) =>
     typeof v === 'object' ? (v ? v.label : '') : v;
 
-  const [inputRef, setInputRef] = useState<HTMLDivElement | null>(null);
-
   return (
-    <Downshift onChange={onChange} itemToString={itemToString}>
+    <Downshift
+      onChange={onChange}
+      onInputValueChange={onInputValueChange}
+      itemToString={itemToString}
+    >
       {({
         getInputProps,
         getItemProps,
         getMenuProps,
         highlightedIndex,
-        inputValue,
         isOpen,
         selectedItem,
         reset,
@@ -52,10 +64,10 @@ const Autocomplete: FunctionComponent<Props> = ({
               getItemProps={getItemProps}
               getMenuProps={getMenuProps}
               highlightedIndex={highlightedIndex}
-              inputValue={inputValue}
               isOpen={isOpen}
               popperNode={inputRef}
               selectedItem={selectedItem}
+              suggestions={suggestions}
             />
           </div>
         );
@@ -68,7 +80,7 @@ type RenderPropProps = DownshiftProps<Suggestion> &
   Actions<Suggestion> &
   PropGetters<Suggestion>;
 
-interface Props extends WithStyles<typeof styles> {
+interface Props extends SuggestionsFetcher, WithStyles<typeof styles> {
   reduxFormProps: WrappedFieldInputProps;
   muiProps: TextFieldProps;
 }
