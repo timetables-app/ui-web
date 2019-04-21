@@ -10,10 +10,10 @@ import styles from './styles';
 import { Suggestion, SuggestionsFetcher } from './types';
 
 const Autocomplete: FunctionComponent<Props> = ({
+  fetchSuggestions,
   classes,
   muiProps,
-  reduxFormProps,
-  fetchSuggestions
+  reduxFormProps
 }) => {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [inputRef, setInputRef] = useState<HTMLDivElement | null>(null);
@@ -81,8 +81,8 @@ type RenderPropProps = DownshiftProps<Suggestion> &
   PropGetters<Suggestion>;
 
 interface Props extends SuggestionsFetcher, WithStyles<typeof styles> {
-  reduxFormProps: WrappedFieldInputProps;
   muiProps: TextFieldProps;
+  reduxFormProps: WrappedFieldInputProps;
 }
 
 export default withStyles(styles, { withTheme: true })(Autocomplete);

@@ -7,11 +7,11 @@ import React, { FunctionComponent } from 'react';
 import { WrappedFieldInputProps } from 'redux-form';
 
 const AutocompleteInput: FunctionComponent<Props> = ({
-  inputRef,
   downshiftProps,
-  resetInput,
   reduxFormProps,
-  muiProps
+  muiProps,
+  resetInput,
+  inputRef
 }) => {
   return (
     <div ref={inputRef}>

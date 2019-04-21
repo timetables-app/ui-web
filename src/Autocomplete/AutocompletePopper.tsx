@@ -1,5 +1,6 @@
-import { MenuItem, Paper, Popper } from '@material-ui/core';
+import { Paper, Popper } from '@material-ui/core';
 import React, { FunctionComponent } from 'react';
+import renderSuggestion from './renderSuggestion';
 import { Suggestion } from './types';
 
 const AutocompletePopper: FunctionComponent<Props> = ({
@@ -13,7 +14,7 @@ const AutocompletePopper: FunctionComponent<Props> = ({
 }) => {
   return (
     <Popper
-      open={isOpen}
+      open={!!isOpen}
       anchorEl={popperNode}
       style={{ zIndex: 1 }}
       modifiers={{ flip: { enabled: true } }}
@@ -23,7 +24,7 @@ const AutocompletePopper: FunctionComponent<Props> = ({
           square
           style={{
             marginTop: 8,
-            width: popperNode ? popperNode.clientWidth : null
+            width: popperNode ? popperNode.clientWidth : undefined
           }}
         >
           {suggestions.map((suggestion, index) =>
@@ -44,38 +45,13 @@ const AutocompletePopper: FunctionComponent<Props> = ({
 };
 
 interface Props {
-  popperNode: any;
+  popperNode: HTMLDivElement | null;
   getMenuProps: any;
-  highlightedIndex: any;
+  highlightedIndex?: number | null;
   getItemProps: any;
-  selectedItem: any;
-  isOpen: any;
+  selectedItem?: Suggestion | null;
+  isOpen?: boolean;
   suggestions: Suggestion[];
-}
-
-function renderSuggestion({
-  suggestion,
-  index,
-  itemProps,
-  highlightedIndex,
-  selectedItem
-}: any) {
-  const isHighlighted = highlightedIndex === index;
-  const isSelected = false; // (selectedItem.label || '').indexOf(suggestion.label) > -1;
-
-  return (
-    <MenuItem
-      {...itemProps}
-      key={suggestion.label}
-      selected={isHighlighted}
-      component="div"
-      style={{
-        fontWeight: isSelected ? 500 : 400
-      }}
-    >
-      {suggestion.label}
-    </MenuItem>
-  );
 }
 
 export default AutocompletePopper;
