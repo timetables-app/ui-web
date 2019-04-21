@@ -5,22 +5,25 @@ import { Field, WrappedFieldProps } from 'redux-form';
 import Autocomplete from '../Autocomplete/Autocomplete';
 
 const AutocompleteField: FunctionComponent<Props> = ({ name, ...muiProps }) => {
-  return <Field name={name} component={render(muiProps)} />;
+  // fixme muiProps spread not as any?
+  return <Field name={name} component={render} {...muiProps as any} />;
 };
 
 type Props = TextFieldProps & {
   name: string;
 };
 
-const render = (muiProps: TextFieldProps) => ({
+const render = ({
   input,
-  meta: { touched, invalid, error }
+  meta: { touched, invalid, error },
+  ...muiProps
 }: WrappedFieldProps) => (
   <Autocomplete
     reduxFormProps={input}
     muiProps={{
       error: touched && invalid,
-      helperText: touched && error
+      helperText: touched && error,
+      ...muiProps
     }}
   />
 );

@@ -4,8 +4,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Grid,
-  TextField as MuiTextField
+  Grid
 } from '@material-ui/core';
 import axios from 'axios';
 import React, { FunctionComponent } from 'react';
@@ -13,12 +12,9 @@ import {
   FormSubmitHandler,
   InjectedFormProps,
   reduxForm,
-  SubmissionError,
-  WrappedFieldProps,
-  Field
+  SubmissionError
 } from 'redux-form';
-import Autocomplete from '../../../Autocomplete';
-import { TextField } from '../../../ReduxFormBridge';
+import { AutocompleteField, TextField } from '../../../ReduxFormBridge';
 
 const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
   handleSubmit,
@@ -58,12 +54,11 @@ const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
                 />
               </Grid>
               <Grid item xs={12}>
-                <Field
+                <AutocompleteField
                   name="locality"
                   variant="outlined"
                   label="Miejscowość"
                   fullWidth
-                  component={renderAutocompleteField}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -106,23 +101,6 @@ const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
     </Grid>
   );
 };
-
-const renderAutocompleteField = ({
-  input,
-  meta: { touched, invalid, error }
-}: TextFieldRendererProps) => (
-  <Autocomplete
-    reduxFormProps={input}
-    muiProps={{
-      error: touched && invalid,
-      helperText: touched && error
-    }}
-  />
-);
-
-export interface TextFieldRendererProps extends WrappedFieldProps {
-  label: string;
-}
 
 const formSubmitHandler: FormSubmitHandler = values => {
   return axios

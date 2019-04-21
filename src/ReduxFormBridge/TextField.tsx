@@ -5,16 +5,18 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import { Field, WrappedFieldProps } from 'redux-form';
 
 const TextField: FunctionComponent<Props> = ({ name, ...muiProps }) => {
-  return <Field name={name} component={render(muiProps)} />;
+  // fixme muiProps spread not as any?
+  return <Field name={name} component={render} {...muiProps as any} />;
 };
 
 type Props = TextFieldProps & {
   name: string;
 };
 
-const render = (muiProps: TextFieldProps) => ({
+const render = ({
   input,
-  meta: { touched, invalid, error }
+  meta: { touched, invalid, error },
+  ...muiProps
 }: WrappedFieldProps) => (
   <MuiTextField
     error={touched && invalid}
