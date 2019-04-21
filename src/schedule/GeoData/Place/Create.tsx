@@ -4,22 +4,24 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Grid,
-  TextField
+  Grid
 } from '@material-ui/core';
+import axios from 'axios';
 import React, { FunctionComponent } from 'react';
 import {
-  Field,
   FormSubmitHandler,
   InjectedFormProps,
   reduxForm,
   SubmissionError,
-  WrappedFieldProps
+  WrappedFieldProps,
+  Field
 } from 'redux-form';
 import Autocomplete from '../../../Autocomplete';
+import { TextField } from '../../../ReduxFormBridge';
 
 const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
-  handleSubmit
+  handleSubmit,
+  submitting
 }) => {
   return (
     <Grid container style={{ padding: 24 }}>
@@ -29,24 +31,29 @@ const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
           <CardContent>
             <Grid container spacing={24}>
               <Grid item xs={12}>
-                <TextField variant="outlined" fullWidth label="Nazwa" />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Field
-                  name="lat"
+                <TextField
+                  label="Nazwa"
+                  name="name"
                   variant="outlined"
                   fullWidth
-                  label="Szerokość geog."
-                  type="number"
-                  component={renderTextField}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
+                  label="Szerokość geog."
+                  name="lat"
+                  type="number"
                   variant="outlined"
                   fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
                   label="Długość geog."
+                  name="lng"
                   type="number"
+                  variant="outlined"
+                  fullWidth
                 />
               </Grid>
               <Grid item xs={12}>
@@ -60,51 +67,44 @@ const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  label="Opis dodatkowy"
+                  name="explanation"
                   variant="outlined"
                   fullWidth
-                  label="Opis dodatkowy"
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField variant="outlined" fullWidth label="Odpowiednik" />
+                {/*<TextField variant="outlined" fullWidth label="Odpowiednik" />*/}
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  label="Pojemność"
+                  name="capacity"
+                  type="number"
                   variant="outlined"
                   fullWidth
-                  label="Pojemność"
-                  type="number"
                 />
               </Grid>
             </Grid>
           </CardContent>
           <CardActions>
-            <Button color="primary" variant="outlined" onClick={handleSubmit}>
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={handleSubmit}
+              disabled={submitting}
+            >
               Zapisz
             </Button>
-            <Button variant="outlined">Anuluj</Button>
+            <Button variant="outlined" disabled={submitting}>
+              Anuluj
+            </Button>
           </CardActions>
         </Card>
       </Grid>
     </Grid>
   );
 };
-
-const renderTextField = ({
-  label,
-  input,
-  meta: { touched, invalid, error },
-  ...custom
-}: TextFieldRendererProps) => (
-  <TextField
-    label={label}
-    placeholder={label}
-    error={touched && invalid}
-    helperText={touched && error}
-    {...input}
-    {...custom}
-  />
-);
 
 const renderAutocompleteField = (fieldProps: TextFieldRendererProps) => (
   <Autocomplete fieldProps={fieldProps} />
@@ -115,10 +115,14 @@ export interface TextFieldRendererProps extends WrappedFieldProps {
 }
 
 const formSubmitHandler: FormSubmitHandler = values => {
-  throw new SubmissionError({
-    lat: 'Niepoprawna szerokość geo.',
-    locality: 'Miejscowość jest wymagana'
-  });
+  return axios
+    .post('http://localhost:8080/places', values)
+    .then(response => {
+      console.log(response);
+    })
+    .catch(err => {
+      throw new SubmissionError(err.response.data);
+    });
 };
 
 export default reduxForm({ form: 'place-create', onSubmit: formSubmitHandler })(
