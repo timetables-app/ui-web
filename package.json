@@ -16,8 +16,10 @@
     "@types/react-leaflet": "^2.2.1",
     "@types/react-redux": "^7.0.6",
     "@types/react-router-dom": "^4.3.1",
+    "@types/redux-form": "^8.1.1",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "downshift": "^3.2.7",
     "leaflet": "^1.4.0",
     "mui-datatables": "^2.0.0-beta.59",
     "react": "^16.8.5",
@@ -28,6 +30,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "redux": "^4.0.1",
+    "redux-form": "^8.2.0",
     "redux-saga": "^1.0.2",
     "typescript": "3.3.4000"
   },

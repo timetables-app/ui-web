@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { combineReducers, createStore } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import {
   Carrier,
   CompanyList,
@@ -48,6 +49,7 @@ const typedWindow = window as any;
 const store = createStore(
   combineReducers({
     appBarTitle: appBarTitleReducer,
+    form: formReducer,
     linearProgress: linearProgressReducer
   }),
   undefined,
