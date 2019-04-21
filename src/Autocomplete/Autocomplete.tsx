@@ -1,7 +1,7 @@
 import { withStyles, WithStyles } from '@material-ui/core';
 // tslint:disable-next-line:no-submodule-imports
 import { TextFieldProps } from '@material-ui/core/TextField';
-import Downshift from 'downshift';
+import Downshift, { Actions, DownshiftProps, PropGetters } from 'downshift';
 import React, { FunctionComponent, useState } from 'react';
 import { WrappedFieldInputProps } from 'redux-form';
 import AutocompleteInput from './AutocompleteInput';
@@ -33,7 +33,7 @@ const Autocomplete: FunctionComponent<Props> = ({
         selectedItem,
         reset,
         clearSelection
-      }: any) => {
+      }: RenderPropProps) => {
         const resetInput = () => {
           reset();
           clearSelection();
@@ -63,6 +63,10 @@ const Autocomplete: FunctionComponent<Props> = ({
     </Downshift>
   );
 };
+
+type RenderPropProps = DownshiftProps<Suggestion> &
+  Actions<Suggestion> &
+  PropGetters<Suggestion>;
 
 interface Props extends WithStyles<typeof styles> {
   reduxFormProps: WrappedFieldInputProps;

@@ -5,7 +5,7 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import { Field, WrappedFieldProps } from 'redux-form';
 
 const TextField: FunctionComponent<Props> = ({ name, ...muiProps }) => {
-  // fixme muiProps spread not as any?
+  // fixme incompatible mui & redux-form types
   return <Field name={name} component={render} {...muiProps as any} />;
 };
 

@@ -5,7 +5,7 @@ import { Field, WrappedFieldProps } from 'redux-form';
 import Autocomplete from '../Autocomplete/Autocomplete';
 
 const AutocompleteField: FunctionComponent<Props> = ({ name, ...muiProps }) => {
-  // fixme muiProps spread not as any?
+  // fixme incompatible mui & redux-form types
   return <Field name={name} component={render} {...muiProps as any} />;
 };
 
