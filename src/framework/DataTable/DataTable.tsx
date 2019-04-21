@@ -7,11 +7,11 @@ import React, {
   useState
 } from 'react';
 import { connect } from 'react-redux';
-import i18n from '../i18n';
 import {
   decrementProgressActionCreator,
   incrementProgressActionCreator
-} from '../Layout';
+} from '../../Layout';
+import i18n from '../i18n';
 
 const DataTable: FunctionComponent<Props> = ({
   incrementProgress,

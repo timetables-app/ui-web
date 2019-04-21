@@ -2,7 +2,7 @@ import { IconButton, Tooltip } from '@material-ui/core';
 import { AddCircleOutline } from '@material-ui/icons';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DataTable from '../../../DataTable';
+import DataTable from '../../../framework/DataTable';
 
 const List = () => {
   return (

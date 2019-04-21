@@ -1,5 +1,5 @@
 import React from 'react';
-import DataTable from '../../DataTable';
+import DataTable from '../../framework/DataTable';
 
 const List = () => {
   return (

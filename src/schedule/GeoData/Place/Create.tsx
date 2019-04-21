@@ -14,7 +14,10 @@ import {
   reduxForm,
   SubmissionError
 } from 'redux-form';
-import { AutocompleteField, TextField } from '../../../ReduxFormBridge';
+import {
+  AutocompleteField,
+  TextField
+} from '../../../framework/ReduxFormBridge';
 
 const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
   handleSubmit,
