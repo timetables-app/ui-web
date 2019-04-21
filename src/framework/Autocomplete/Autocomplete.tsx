@@ -1,5 +1,4 @@
 import { withStyles, WithStyles } from '@material-ui/core';
-// tslint:disable-next-line:no-submodule-imports
 import { TextFieldProps } from '@material-ui/core/TextField';
 import Downshift, { Actions, DownshiftProps, PropGetters } from 'downshift';
 import React, { FunctionComponent, useState } from 'react';

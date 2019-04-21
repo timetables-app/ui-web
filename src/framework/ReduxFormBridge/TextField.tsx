@@ -1,5 +1,4 @@
 import { TextField as MuiTextField } from '@material-ui/core';
-// tslint:disable-next-line:no-submodule-imports
 import { TextFieldProps } from '@material-ui/core/TextField';
 import React, { FunctionComponent, ReactNode } from 'react';
 import { Field, WrappedFieldProps } from 'redux-form';

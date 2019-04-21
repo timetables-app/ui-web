@@ -1,5 +1,4 @@
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
-// tslint:disable-next-line:no-submodule-imports
 import { TextFieldProps } from '@material-ui/core/TextField';
 import { Close } from '@material-ui/icons';
 import { GetInputPropsOptions } from 'downshift';

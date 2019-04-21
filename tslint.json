@@ -16,6 +16,11 @@
       true,
       "never"
     ],
+    "no-submodule-imports": [
+      true,
+      "redux-saga/effects",
+      "@material-ui/core/TextField"
+    ],
     "prettier": [
       true,
       ".prettierrc"

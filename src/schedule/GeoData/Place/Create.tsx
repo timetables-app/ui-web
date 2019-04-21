@@ -8,6 +8,8 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import React, { FunctionComponent } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   FormSubmitHandler,
   InjectedFormProps,
@@ -16,12 +18,21 @@ import {
 } from 'redux-form';
 import {
   AutocompleteField,
+  submitFormError,
+  submitFormStart,
+  submitFormSuccess,
   TextField
 } from '../../../framework/ReduxFormBridge';
+import {
+  decrementProgressActionCreator,
+  incrementProgressActionCreator
+} from '../../../Layout/LinearProgress';
 
-const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
+const Create: FunctionComponent<Props> = ({
   handleSubmit,
-  submitting
+  submitting,
+  incrementProgress,
+  decrementProgress
 }) => {
   return (
     <Grid container style={{ padding: 24 }}>
@@ -58,7 +69,10 @@ const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
               </Grid>
               <Grid item xs={12}>
                 <AutocompleteField
-                  fetchSuggestions={fetchData}
+                  fetchSuggestions={fetchLocalitySuggestion(
+                    incrementProgress,
+                    decrementProgress
+                  )}
                   name="locality"
                   variant="outlined"
                   label="Miejscowość"
@@ -74,7 +88,16 @@ const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
                 />
               </Grid>
               <Grid item xs={12}>
-                {/*<TextField variant="outlined" fullWidth label="Odpowiednik" />*/}
+                <AutocompleteField
+                  fetchSuggestions={fetchPlaceSuggestion(
+                    incrementProgress,
+                    decrementProgress
+                  )}
+                  name="variantOf"
+                  variant="outlined"
+                  label="Odpowiednik"
+                  fullWidth
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -96,7 +119,12 @@ const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
             >
               Zapisz
             </Button>
-            <Button variant="outlined" disabled={submitting}>
+
+            <Button
+              variant="outlined"
+              disabled={submitting}
+              {...{ component: Link, to: '/geodata/places' } as any}
+            >
               Anuluj
             </Button>
           </CardActions>
@@ -106,19 +134,31 @@ const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
   );
 };
 
-const formSubmitHandler: FormSubmitHandler = values => {
+interface Props extends InjectedFormProps<{}, {}> {
+  incrementProgress: () => void;
+  decrementProgress: () => void;
+}
+
+const formSubmitHandler: FormSubmitHandler = (values, dispatch, props: any) => {
+  dispatch(submitFormStart());
   return axios
     .post('http://localhost:8080/places', values)
-    .then(response => {
-      console.log(response);
-    })
+    .then(() =>
+      dispatch(
+        submitFormSuccess({ path: '/geodata/places', history: props.history })
+      )
+    )
     .catch(err => {
+      dispatch(submitFormError());
       throw new SubmissionError(err.response.data);
     });
 };
 
-const fetchData = (q: string) => {
-  // incrementProgress();
+const fetchLocalitySuggestion = (
+  incrementProgress: () => void,
+  decrementProgress: () => void
+) => (q: string) => {
+  incrementProgress();
   return axios
     .get('http://localhost:8080/localities/search/q', {
       params: { q, size: 5 }
@@ -130,10 +170,36 @@ const fetchData = (q: string) => {
         }`,
         value: locality._links.self.href
       }));
-    });
-  // .finally(decrementProgress);
+    })
+    .finally(decrementProgress);
+};
+
+const fetchPlaceSuggestion = (
+  incrementProgress: () => void,
+  decrementProgress: () => void
+) => (q: string) => {
+  incrementProgress();
+  return axios
+    .get('http://localhost:8080/places/search/q', {
+      params: { q, size: 5 }
+    })
+    .then(response => {
+      return response.data._embedded.places.map((place: any) => ({
+        label: `${place.name}, ${place.locality}`,
+        value: place._links.self.href
+      }));
+    })
+    .finally(decrementProgress);
+};
+
+const mapDispatchToProps = {
+  decrementProgress: decrementProgressActionCreator,
+  incrementProgress: incrementProgressActionCreator
 };
 
 export default reduxForm({ form: 'place-create', onSubmit: formSubmitHandler })(
-  Create
+  connect(
+    null,
+    mapDispatchToProps
+  )(Create)
 );
