@@ -4,7 +4,8 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Grid
+  Grid,
+  TextField as MuiTextField
 } from '@material-ui/core';
 import axios from 'axios';
 import React, { FunctionComponent } from 'react';
@@ -106,8 +107,17 @@ const Create: FunctionComponent<InjectedFormProps<{}, {}>> = ({
   );
 };
 
-const renderAutocompleteField = (fieldProps: TextFieldRendererProps) => (
-  <Autocomplete fieldProps={fieldProps} />
+const renderAutocompleteField = ({
+  input,
+  meta: { touched, invalid, error }
+}: TextFieldRendererProps) => (
+  <Autocomplete
+    reduxFormProps={input}
+    muiProps={{
+      error: touched && invalid,
+      helperText: touched && error
+    }}
+  />
 );
 
 export interface TextFieldRendererProps extends WrappedFieldProps {

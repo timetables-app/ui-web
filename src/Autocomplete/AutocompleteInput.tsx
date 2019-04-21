@@ -1,48 +1,43 @@
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
+// tslint:disable-next-line:no-submodule-imports
+import { TextFieldProps } from '@material-ui/core/TextField';
 import { Close } from '@material-ui/icons';
 import React, { FunctionComponent } from 'react';
-import { TextFieldRendererProps } from '../schedule/GeoData/Place/Create';
+import { WrappedFieldInputProps } from 'redux-form';
 
 const AutocompleteInput: FunctionComponent<Props> = ({
   inputRef,
-  InputProps,
+  downshiftProps,
   resetInput,
-  fieldProps: {
-    label,
-    input,
-    meta: { touched, invalid, error },
-    ...custom
-  }
+  reduxFormProps,
+  muiProps
 }) => {
   return (
     <div ref={inputRef}>
       <TextField
         InputProps={{
-          endAdornment: InputProps.value && (
+          endAdornment: downshiftProps.value && (
             <InputAdornment position="end">
               <IconButton onClick={resetInput}>
                 <Close />
               </IconButton>
             </InputAdornment>
           ),
-          ...InputProps
+          ...downshiftProps
         }}
-        label={label}
-        placeholder={label}
-        error={touched && invalid}
-        helperText={touched && error}
-        {...input}
-        {...custom}
+        {...reduxFormProps}
+        {...muiProps}
       />
     </div>
   );
 };
 
 interface Props {
-  InputProps: any;
+  downshiftProps: any;
+  reduxFormProps: WrappedFieldInputProps;
+  muiProps: TextFieldProps;
   resetInput: () => void;
   inputRef: (ref: HTMLDivElement | null) => void;
-  fieldProps: TextFieldRendererProps;
 }
 
 export default AutocompleteInput;
