@@ -5,9 +5,9 @@ import {
   withStyles
 } from '@material-ui/core';
 import React, { FunctionComponent, useState } from 'react';
+import LinearProgress from '../framework/LinearProgress';
 import AppBar from './AppBar';
 import Drawer from './Drawer';
-import LinearProgress from './LinearProgress';
 import styles from './styles';
 import theme from './theme';
 

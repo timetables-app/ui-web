@@ -13,10 +13,10 @@ import { Place } from '@material-ui/icons';
 import React, { FunctionComponent, useState } from 'react';
 import { Map as MapLeaflet, Marker, TileLayer } from 'react-leaflet';
 import { connect } from 'react-redux';
-import { setAppBarTitleActionCreator } from '../../Layout';
+import { setTitle } from '../../framework/title';
 
-const Map: FunctionComponent<Props> = ({ setAppBarTitle }) => {
-  setAppBarTitle('Rozkłady mapa');
+const Map: FunctionComponent<Props> = ({ setTitle: dispatchSetTitle }) => {
+  dispatchSetTitle('Rozkłady mapa');
   const [selectedPlace, setSelectedPlace] = useState<string>('');
   const [source, setSource] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
@@ -108,11 +108,11 @@ const Map: FunctionComponent<Props> = ({ setAppBarTitle }) => {
 };
 
 interface Props {
-  setAppBarTitle: (appBarTitle: string) => void;
+  setTitle: (title: string) => void;
 }
 
 const mapDispatchToProps = {
-  setAppBarTitle: setAppBarTitleActionCreator
+  setTitle
 };
 
 export default connect(

@@ -10,6 +10,7 @@ import { Menu as MenuIcon } from '@material-ui/icons';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
+import { TitleAppStateSubset } from '../../framework/title';
 import AccountDropdown from './AccountDropdown';
 import styles from './styles';
 
@@ -17,7 +18,7 @@ const AppBar: FunctionComponent<Props> = ({
   classes,
   handleDrawerOpen,
   open,
-  appBarTitle
+  title
 }) => {
   return (
     <MuiAppBar
@@ -42,7 +43,7 @@ const AppBar: FunctionComponent<Props> = ({
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" color="inherit" noWrap style={{ flexGrow: 1 }}>
-          {appBarTitle}
+          {title}
         </Typography>
         <AccountDropdown />
       </Toolbar>
@@ -51,13 +52,13 @@ const AppBar: FunctionComponent<Props> = ({
 };
 
 interface Props extends WithStyles<typeof styles> {
-  appBarTitle: string;
+  title: string;
   handleDrawerOpen: () => void;
   open: boolean;
 }
 
-const mapStateToProps = (state: { appBarTitle: string }) => ({
-  appBarTitle: state.appBarTitle
+const mapStateToProps = (state: TitleAppStateSubset) => ({
+  title: state.title
 });
 
 export default connect(

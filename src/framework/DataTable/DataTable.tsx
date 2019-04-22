@@ -7,15 +7,12 @@ import React, {
   useState
 } from 'react';
 import { connect } from 'react-redux';
-import {
-  decrementProgressActionCreator,
-  incrementProgressActionCreator
-} from '../../Layout';
 import i18n from '../i18n';
+import { decrementProgress, incrementProgress } from '../LinearProgress';
 
 const DataTable: FunctionComponent<Props> = ({
-  incrementProgress,
-  decrementProgress,
+  incrementProgress: dispatchIncrementProgress,
+  decrementProgress: dispatchDecrementProgress,
   title,
   dataAdapter,
   pageDataAdapter,
@@ -57,7 +54,7 @@ const DataTable: FunctionComponent<Props> = ({
   }
 
   const fetchData = (size: number, page: number, sort?: string, q?: string) => {
-    incrementProgress();
+    dispatchIncrementProgress();
     axios
       .get(q ? `${url}/search/q` : url, {
         params: { size, page, sort, q }
@@ -70,7 +67,7 @@ const DataTable: FunctionComponent<Props> = ({
         );
         setData(dataAdapter(response.data));
       })
-      .finally(decrementProgress);
+      .finally(dispatchDecrementProgress);
   };
 
   return (
@@ -112,8 +109,8 @@ interface Props {
 }
 
 const mapDispatchToProps = {
-  decrementProgress: decrementProgressActionCreator,
-  incrementProgress: incrementProgressActionCreator
+  decrementProgress,
+  incrementProgress
 };
 
 export default connect(

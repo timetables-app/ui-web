@@ -1,18 +1,20 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import { setAppBarTitleActionCreator } from '../../Layout';
+import { setTitle } from '../../framework/title';
 
-const LostAndFound: FunctionComponent<Props> = ({ setAppBarTitle }) => {
-  setAppBarTitle('Zgubione & znalezione');
+const LostAndFound: FunctionComponent<Props> = ({
+  setTitle: dispatchSetTitle
+}) => {
+  dispatchSetTitle('Zgubione & znalezione');
   return <div />;
 };
 
 interface Props {
-  setAppBarTitle: (appBarTitle: string) => void;
+  setTitle: (title: string) => void;
 }
 
 const mapDispatchToProps = {
-  setAppBarTitle: setAppBarTitleActionCreator
+  setTitle
 };
 
 export default connect(

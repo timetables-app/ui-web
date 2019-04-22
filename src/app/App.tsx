@@ -1,9 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import { reducer as formReducer } from 'redux-form';
-import createSagaMiddleware from 'redux-saga';
 import {
   Carrier,
   CompanyList,
@@ -12,13 +9,13 @@ import {
   LostAndFound,
   MyCompany,
   Register
-} from './community';
-import Layout, { appBarTitleReducer, linearProgressReducer } from './Layout';
-import { GeoData, Line, Timetable, Vehicle } from './schedule';
-import { SearchMap } from './search';
-import { redirectSideEffect } from './framework/ReduxFormBridge';
+} from '../community';
+import { GeoData, Line, Timetable, Vehicle } from '../schedule';
+import { SearchMap } from '../search';
+import Layout from './Layout';
+import store from './store';
 
-const App = () => {
+function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -44,28 +41,6 @@ const App = () => {
       </BrowserRouter>
     </Provider>
   );
-};
-
-const typedWindow = window as any;
-
-const sagaMiddleware = createSagaMiddleware();
-
-const store = createStore(
-  combineReducers({
-    appBarTitle: appBarTitleReducer,
-    form: formReducer,
-    linearProgress: linearProgressReducer
-  }),
-  undefined,
-  compose(
-    applyMiddleware(sagaMiddleware),
-    typeof typedWindow !== 'undefined' &&
-      typedWindow.__REDUX_DEVTOOLS_EXTENSION__
-      ? typedWindow.__REDUX_DEVTOOLS_EXTENSION__()
-      : (f: any) => f
-  )
-);
-
-sagaMiddleware.run(redirectSideEffect);
+}
 
 export default App;

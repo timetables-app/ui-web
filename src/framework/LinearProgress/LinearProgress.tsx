@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core';
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
+import { ProgressAppStateSubset } from './store';
 import styles from './styles';
 
 const LinearProgress: FunctionComponent<Props> = ({ classes, counter }) => {
@@ -18,7 +19,7 @@ interface Props extends WithStyles<typeof styles> {
   counter: number;
 }
 
-const mapStateToProps = (state: { linearProgress: number }) => ({
+const mapStateToProps = (state: ProgressAppStateSubset) => ({
   counter: state.linearProgress
 });
 

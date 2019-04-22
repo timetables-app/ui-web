@@ -17,22 +17,22 @@ import {
   SubmissionError
 } from 'redux-form';
 import {
+  decrementProgress,
+  incrementProgress
+} from '../../../framework/LinearProgress';
+import {
   AutocompleteField,
   submitFormError,
   submitFormStart,
   submitFormSuccess,
   TextField
 } from '../../../framework/ReduxFormBridge';
-import {
-  decrementProgressActionCreator,
-  incrementProgressActionCreator
-} from '../../../Layout/LinearProgress';
 
 const Create: FunctionComponent<Props> = ({
   handleSubmit,
   submitting,
-  incrementProgress,
-  decrementProgress
+  incrementProgress: dispatchIncrementProgress,
+  decrementProgress: dispatchDecrementProgress
 }) => {
   return (
     <Grid container style={{ padding: 24 }}>
@@ -70,8 +70,8 @@ const Create: FunctionComponent<Props> = ({
               <Grid item xs={12}>
                 <AutocompleteField
                   fetchSuggestions={fetchLocalitySuggestion(
-                    incrementProgress,
-                    decrementProgress
+                    dispatchIncrementProgress,
+                    dispatchDecrementProgress
                   )}
                   name="locality"
                   variant="outlined"
@@ -90,8 +90,8 @@ const Create: FunctionComponent<Props> = ({
               <Grid item xs={12}>
                 <AutocompleteField
                   fetchSuggestions={fetchPlaceSuggestion(
-                    incrementProgress,
-                    decrementProgress
+                    dispatchIncrementProgress,
+                    dispatchDecrementProgress
                   )}
                   name="variantOf"
                   variant="outlined"
@@ -155,10 +155,10 @@ const formSubmitHandler: FormSubmitHandler = (values, dispatch, props: any) => {
 };
 
 const fetchLocalitySuggestion = (
-  incrementProgress: () => void,
-  decrementProgress: () => void
+  dispatchIncrementProgress: () => void,
+  dispatchDecrementProgress: () => void
 ) => (q: string) => {
-  incrementProgress();
+  dispatchIncrementProgress();
   return axios
     .get('http://localhost:8080/localities/search/q', {
       params: { q, size: 5 }
@@ -171,14 +171,14 @@ const fetchLocalitySuggestion = (
         value: locality._links.self.href
       }));
     })
-    .finally(decrementProgress);
+    .finally(dispatchDecrementProgress);
 };
 
 const fetchPlaceSuggestion = (
-  incrementProgress: () => void,
-  decrementProgress: () => void
+  dispatchIncrementProgress: () => void,
+  dispatchDecrementProgress: () => void
 ) => (q: string) => {
-  incrementProgress();
+  dispatchIncrementProgress();
   return axios
     .get('http://localhost:8080/places/search/q', {
       params: { q, size: 5 }
@@ -189,12 +189,12 @@ const fetchPlaceSuggestion = (
         value: place._links.self.href
       }));
     })
-    .finally(decrementProgress);
+    .finally(dispatchDecrementProgress);
 };
 
 const mapDispatchToProps = {
-  decrementProgress: decrementProgressActionCreator,
-  incrementProgress: incrementProgressActionCreator
+  decrementProgress,
+  incrementProgress
 };
 
 export default reduxForm({ form: 'place-create', onSubmit: formSubmitHandler })(

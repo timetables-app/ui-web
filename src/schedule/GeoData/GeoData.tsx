@@ -9,7 +9,7 @@ import {
   withRouter
 } from 'react-router';
 import { Link } from 'react-router-dom';
-import { setAppBarTitleActionCreator } from '../../Layout';
+import { setTitle } from '../../framework/title';
 import { CountryList } from './Country';
 import { LocalityList } from './Locality';
 import { PlaceCreate, PlaceList } from './Place';
@@ -18,9 +18,9 @@ import { StateList } from './State';
 
 const GeoData: FunctionComponent<Props> = ({
   location: { pathname },
-  setAppBarTitle
+  setTitle: dispatchSetTitle
 }) => {
-  setAppBarTitle('GeoDane');
+  dispatchSetTitle('GeoDane');
 
   return (
     <>
@@ -76,11 +76,11 @@ const normalizePathname = (pathname: string) => {
 };
 
 interface Props extends RouteComponentProps<{}> {
-  setAppBarTitle: (appBarTitle: string) => void;
+  setTitle: (title: string) => void;
 }
 
 const mapDispatchToProps = {
-  setAppBarTitle: setAppBarTitleActionCreator
+  setTitle
 };
 
 export default withRouter(
