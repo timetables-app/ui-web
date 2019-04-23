@@ -1,40 +1,67 @@
-import React, { FunctionComponent, useState } from 'react';
-import { Map as MapLeaflet, Marker, TileLayer } from 'react-leaflet';
+import axios from 'axios';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { Map as MapLeaflet, TileLayer } from 'react-leaflet';
 import { connect } from 'react-redux';
+import {
+  decrementProgress,
+  incrementProgress
+} from '../../framework/LinearProgress';
 import { setTitle } from '../../framework/title';
-import { LeafletMouseEvent } from 'leaflet';
-import { Card, CardContent, Typography } from '@material-ui/core';
-import Popover from './Popover';
+import MapBar from './MapBar';
+import MapMarker from './MapMarker';
+import { PlacePoint } from './types';
 
-const Map: FunctionComponent<Props> = ({ setTitle: dispatchSetTitle }) => {
+const Map: FunctionComponent<Props> = ({
+  setTitle: dispatchSetTitle,
+  incrementProgress: dispatchIncrementProgress,
+  decrementProgress: dispatchDecrementProgress
+}) => {
   dispatchSetTitle('Rozkłady mapa');
-  const [selectedPlace, setSelectedPlace] = useState<string>('');
-  const [source, setSource] = useState<string>('');
-  const [destination, setDestination] = useState<string>('');
-  const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
 
-  const logRef = (ref: any) => {
-    console.log(ref);
-  };
+  const [places, setPlaces] = useState<PlacePoint[]>([]);
+  useEffect(() => {
+    dispatchIncrementProgress();
+    axios
+      .get('http://localhost:8080/places')
+      .then(r => {
+        setPlaces(
+          r.data._embedded.places.map(
+            (v: any): PlacePoint => ({
+              lat: v.lat,
+              link: v._links.self.href,
+              lng: v.lng,
+              name: v.name
+            })
+          )
+        );
+      })
+      .finally(dispatchDecrementProgress);
+  }, []);
 
-  const onMarkerClick = (e: LeafletMouseEvent) => {
-    setPopoverPosition(e.layerPoint);
-  };
+  const [source, setSource] = useState<PlacePoint>();
+  const [destination, setDestination] = useState<PlacePoint>();
+  const onClickSource = (placePoint: PlacePoint) => () => setSource(placePoint);
+  const onClickDestination = (placePoint: PlacePoint) => () =>
+    setDestination(placePoint);
+  const [departureTime, setDepartureTime] = useState(new Date());
 
   return (
     <>
-      <MapLeaflet
-        center={[50.062037, 19.937735]}
-        zoom={14}
-        onClick={() => setSelectedPlace('')}
-      >
-        <Popover {...popoverPosition} />
-        <Marker
-          ref={logRef}
-          position={[50.062037, 19.937735]}
-          onClick={onMarkerClick}
-        />
-        <Marker position={[50.062037, 19.927735]} onClick={onMarkerClick} />
+      <MapBar
+        source={source}
+        destination={destination}
+        departureTime={departureTime}
+        setDepartureTime={setDepartureTime}
+      />
+      <MapLeaflet center={[50.062037, 19.937735]} zoom={14}>
+        {places.map((p, idx) => (
+          <MapMarker
+            key={idx}
+            placePoint={p}
+            onClickSource={onClickSource}
+            onClickDestination={onClickDestination}
+          />
+        ))}
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
@@ -46,9 +73,13 @@ const Map: FunctionComponent<Props> = ({ setTitle: dispatchSetTitle }) => {
 
 interface Props {
   setTitle: (title: string) => void;
+  incrementProgress: () => void;
+  decrementProgress: () => void;
 }
 
 const mapDispatchToProps = {
+  decrementProgress,
+  incrementProgress,
   setTitle
 };
 
