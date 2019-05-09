@@ -14,6 +14,7 @@ import {
 } from '../community';
 import { GeoData, Line, Timetable, Vehicle } from '../schedule';
 import { SearchMap } from '../search';
+import SearchResult from '../search/SearchResult';
 import Layout from './Layout';
 import store from './store';
 
@@ -39,6 +40,11 @@ function App() {
 
               <Route path="/companies" exact component={CompanyList} />
               <Route path="/geodata" component={GeoData} />
+
+              <Route
+                path="/search-result/:srcPlaceId/:destPlaceId/:departureTime"
+                component={SearchResult}
+              />
             </Switch>
           </Layout>
         </BrowserRouter>

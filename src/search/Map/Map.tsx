@@ -27,8 +27,8 @@ const Map: FunctionComponent<Props> = ({
         setPlaces(
           r.data._embedded.places.map(
             (v: any): PlacePoint => ({
+              id: v.id,
               lat: v.lat,
-              link: v._links.self.href,
               lng: v.lng,
               name: v.name
             })

@@ -9,6 +9,7 @@ import { Place } from '@material-ui/icons';
 import { DateTimePicker } from 'material-ui-pickers';
 import React, { FunctionComponent } from 'react';
 import { PlacePoint } from './types';
+import { Link } from 'react-router-dom';
 
 const MapBar: FunctionComponent<Props> = ({
   source,
@@ -67,13 +68,24 @@ const MapBar: FunctionComponent<Props> = ({
         />
       </Grid>
       <Grid item style={{ display: 'flex' }} xs={12} sm={6} md={2}>
-        <Button
-          variant="outlined"
-          color="primary"
-          disabled={!(source && destination && departureTime)}
-        >
-          Szukaj
-        </Button>
+        {source && destination && departureTime ? (
+          <Button
+            variant="outlined"
+            color="primary"
+            {...{
+              component: Link,
+              to: `/search-result/${source.id}/${
+                destination.id
+              }/${departureTime.toISOString()}`
+            } as any}
+          >
+            Szukaj
+          </Button>
+        ) : (
+          <Button variant="outlined" color="primary" disabled>
+            Szukaj
+          </Button>
+        )}
       </Grid>
     </Grid>
   );

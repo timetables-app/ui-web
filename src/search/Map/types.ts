@@ -1,5 +1,5 @@
 export interface PlacePoint {
-  link: string;
+  id: number;
   name: string;
   lat: number;
   lng: number;
