@@ -16,7 +16,7 @@ import {
 } from '@material-ui/icons';
 
 import React, { cloneElement, FunctionComponent, ReactElement } from 'react';
-import { VehicleType, VehicleTypeMap } from './types';
+import { VehicleType, VehicleTypeMap } from '../types';
 
 const Line: FunctionComponent<Props> = ({
   vehicleType,

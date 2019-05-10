@@ -9,8 +9,8 @@ import {
 } from '@material-ui/icons';
 import moment from 'moment';
 import React, { cloneElement, FunctionComponent, ReactElement } from 'react';
+import { PathMeansOfTransport, PathMeansOfTransportMap } from '../types';
 import Change from './Change';
-import { PathMeansOfTransport, PathMeansOfTransportMap } from './types';
 
 const PathSummary: FunctionComponent<Props> = ({
   sourceTime,

@@ -7,8 +7,8 @@ import {
 } from '@material-ui/core';
 import moment from 'moment';
 import React, { FunctionComponent } from 'react';
+import { Course, isCourseTransit, isPlacePoint } from '../types';
 import Line from './Line';
-import { Course, isCourseTransit, isPlacePoint } from './types';
 
 const PathDetails: FunctionComponent<Props> = ({ classes, courses }) => (
   <ExpansionPanelDetails classes={{ root: classes.root }}>

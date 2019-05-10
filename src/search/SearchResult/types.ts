@@ -1,6 +1,4 @@
-export interface SearchResult {
-  paths: SearchResultPath[];
-}
+export type SearchResultType = SearchResultPath[];
 
 interface SearchResultPath {
   sourceTime: Date;
