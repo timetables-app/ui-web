@@ -3,6 +3,7 @@ import { CourseType, PointType, SearchResult, VehicleType } from './types';
 const dummySearchResult: SearchResult = {
   paths: [
     {
+      changeCount: 2,
       courses: [
         {
           id: 1,
@@ -677,6 +678,7 @@ const dummySearchResult: SearchResult = {
         }
       ],
       destinationTime: new Date('05-01-2019 13:37:00'),
+      meansOfTransport: [VehicleType.bus, CourseType.walking],
       sourceTime: new Date('05-01-2019 10:03:00')
     }
   ]

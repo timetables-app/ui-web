@@ -5,6 +5,8 @@ export interface SearchResult {
 interface SearchResultPath {
   sourceTime: Date;
   destinationTime: Date;
+  meansOfTransport: PathMeansOfTransport[];
+  changeCount: number;
   courses: Course[];
 }
 
@@ -80,3 +82,9 @@ interface Timetable {
 interface Company {
   name: string;
 }
+
+export type PathMeansOfTransport = VehicleType | CourseType.walking;
+
+export type PathMeansOfTransportMap<T> = {
+  [k in keyof typeof VehicleType | CourseType.walking]: T
+};

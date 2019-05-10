@@ -1,32 +1,33 @@
 import {
   Card,
   CardContent,
-  Chip,
+  createStyles,
   ExpansionPanel,
   ExpansionPanelSummary,
   Grid,
-  IconButton,
-  Tooltip,
   Typography,
   withStyles,
   WithStyles
 } from '@material-ui/core';
-import {
-  ChevronRight,
-  DirectionsBus,
-  DirectionsWalk,
-  ExpandMore,
-  Subway,
-  Train,
-  Tram
-} from '@material-ui/icons';
-import moment from 'moment';
+import { ExpandMore } from '@material-ui/icons';
 import React, { FunctionComponent } from 'react';
+import { connect } from 'react-redux';
+import {
+  decrementProgress,
+  incrementProgress
+} from '../../framework/LinearProgress/store';
+import { setTitle } from '../../framework/title';
 import dummySearchResult from './dummySearchResult';
-import styles from './styles';
-import Change from './Change';
+import PathDetails from './PathDetails';
+import PathSummary from './PathSummary';
 
-const SearchResult: FunctionComponent<Props> = ({ classes }) => {
+const SearchResult: FunctionComponent<Props> = ({
+  classes,
+  setTitle: dispatchSetTitle,
+  incrementProgress: dispatchIncrementProgress,
+  decrementProgress: dispatchDecrementProgress
+}) => {
+  dispatchSetTitle('Wyniki wyszukiwania');
   return (
     <Grid container>
       <Grid item xs={12} lg={5} style={{ margin: 16 }}>
@@ -37,44 +38,14 @@ const SearchResult: FunctionComponent<Props> = ({ classes }) => {
                 expandIcon={<ExpandMore />}
                 classes={classes}
               >
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <Typography variant="subheading">
-                    {moment(path.sourceTime).format('LT')}
-                  </Typography>
-                  <ChevronRight />
-                  <Typography variant="subheading">
-                    {moment(path.destinationTime).format('LT')}
-                  </Typography>
-                </div>
-                <div>
-                  <Tooltip title="Trasa zawiera przejście pieszo">
-                    <IconButton disableTouchRipple>
-                      <DirectionsWalk fontSize={'small'} />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Trasa zawiera przejazd metrem">
-                    <IconButton disableTouchRipple>
-                      <Subway fontSize={'small'} />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Trasa zawiera przejazd pociągiem">
-                    <IconButton disableTouchRipple>
-                      <Train fontSize={'small'} />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Trasa zawiera przejazd tramwajem">
-                    <IconButton disableTouchRipple>
-                      <Tram fontSize={'small'} />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Trasa zawiera przejazd busem">
-                    <IconButton disableTouchRipple>
-                      <DirectionsBus fontSize={'small'} />
-                    </IconButton>
-                  </Tooltip>
-                  <Change />
-                </div>
+                <PathSummary
+                  sourceTime={path.sourceTime}
+                  destinationTime={path.destinationTime}
+                  meansOfTransport={path.meansOfTransport}
+                  changeCount={path.changeCount}
+                />
               </ExpansionPanelSummary>
+              <PathDetails />
             </ExpansionPanel>
           ))
         ) : (
@@ -89,6 +60,25 @@ const SearchResult: FunctionComponent<Props> = ({ classes }) => {
   );
 };
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props extends WithStyles<typeof styles> {
+  setTitle: (title: string) => void;
+  incrementProgress: () => void;
+  decrementProgress: () => void;
+}
 
-export default withStyles(styles)(SearchResult);
+const styles = createStyles({
+  content: {
+    display: 'block'
+  }
+});
+
+const mapDispatchToProps = {
+  decrementProgress,
+  incrementProgress,
+  setTitle
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(SearchResult));

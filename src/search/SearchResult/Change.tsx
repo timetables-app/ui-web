@@ -6,15 +6,17 @@ import {
 } from '@material-ui/core';
 import React, { FunctionComponent } from 'react';
 
-const Change: FunctionComponent<Props> = ({ classes }) => {
-  return (
+const Change: FunctionComponent<Props> = ({ classes, count }) => {
+  return count ? (
     <Typography variant="overline" classes={classes}>
-      2 przesiadki
+      {count} przesiadki
     </Typography>
-  );
+  ) : null;
 };
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props extends WithStyles<typeof styles> {
+  count: number;
+}
 
 const styles = createStyles({
   root: {
