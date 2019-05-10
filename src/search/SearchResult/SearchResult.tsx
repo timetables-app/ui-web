@@ -45,7 +45,7 @@ const SearchResult: FunctionComponent<Props> = ({
                   changeCount={path.changeCount}
                 />
               </ExpansionPanelSummary>
-              <PathDetails />
+              <PathDetails courses={path.courses} />
             </ExpansionPanel>
           ))
         ) : (

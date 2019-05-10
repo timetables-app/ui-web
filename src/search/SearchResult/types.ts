@@ -10,7 +10,7 @@ interface SearchResultPath {
   courses: Course[];
 }
 
-type Course = CourseTransit | CourseWalking;
+export type Course = CourseTransit | CourseWalking;
 
 interface CourseTransit {
   type: CourseType.transit;
@@ -18,6 +18,10 @@ interface CourseTransit {
   line: Line;
   timetable: Timetable;
   points: Point[];
+}
+
+export function isCourseTransit(v: any): v is CourseTransit {
+  return v.type === CourseType.transit;
 }
 
 interface CourseWalking {
@@ -35,6 +39,8 @@ interface Line {
   vehicleType: VehicleType;
 }
 
+export type VehicleTypeMap<T> = { [k in keyof typeof VehicleType]: T };
+
 export enum VehicleType {
   bus = 'bus',
   train = 'train',
@@ -43,6 +49,10 @@ export enum VehicleType {
 }
 
 type Point = PlacePoint | RouteControlPoint;
+
+export function isPlacePoint(v: any): v is PlacePoint {
+  return v.type === PointType.place;
+}
 
 interface PlacePoint {
   type: PointType.place;
@@ -85,6 +95,6 @@ interface Company {
 
 export type PathMeansOfTransport = VehicleType | CourseType.walking;
 
-export type PathMeansOfTransportMap<T> = {
-  [k in keyof typeof VehicleType | CourseType.walking]: T
+export type PathMeansOfTransportMap<T> = VehicleTypeMap<T> & {
+  [CourseType.walking]: T;
 };

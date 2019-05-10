@@ -5,65 +5,56 @@ import {
   withStyles,
   WithStyles
 } from '@material-ui/core';
+import moment from 'moment';
 import React, { FunctionComponent } from 'react';
 import Line from './Line';
+import { Course, isCourseTransit, isPlacePoint } from './types';
 
-const PathDetails: FunctionComponent<Props> = ({ classes }) => (
-  <ExpansionPanelDetails classes={classes}>
-    <Line lineNumber="24" supportedCompany="MPK S.A" />
-    <div
-      style={{
-        borderLeft: '1px solid rgb(196, 196, 196)',
-        margin: '-6px 0 0 16px',
-        padding: '10px 0'
-      }}
-    >
-      <ul
-        style={{
-          padding: '0',
-          margin: '0 0 0 17px',
-          fontSize: '24px',
-          color: 'rgb(117, 117, 117)'
-        }}
-      >
-        <li>
-          <Typography>10:02 Starowiślna</Typography>
-        </li>
-        <li>
-          <Typography>10:02 Poczta główna</Typography>
-        </li>
-      </ul>
-    </div>
-    <Line lineNumber="24" supportedCompany="MPK S.A" />
-    <div
-      style={{
-        borderLeft: '1px solid rgb(196, 196, 196)',
-        margin: '-6px 0 0 16px',
-        padding: '10px 0'
-      }}
-    >
-      <ul
-        style={{
-          padding: '0',
-          margin: '0 0 0 17px',
-          fontSize: '24px',
-          color: 'rgb(117, 117, 117)'
-        }}
-      >
-        <li>
-          <Typography>10:02 Starowiślna</Typography>
-        </li>
-        <li>
-          <Typography>10:02 Poczta główna</Typography>
-        </li>
-      </ul>
-    </div>
+const PathDetails: FunctionComponent<Props> = ({ classes, courses }) => (
+  <ExpansionPanelDetails classes={{ root: classes.root }}>
+    {courses.map((course, idx) => (
+      <React.Fragment key={idx}>
+        {isCourseTransit(course) ? (
+          <Line
+            lineNumber={course.line.number}
+            supportedCompany={course.timetable.supportedCompany.name}
+            vehicleType={course.line.vehicleType}
+          />
+        ) : (
+          <Line />
+        )}
+        <div className={classes.placeLine}>
+          <ul className={classes.placeList}>
+            {course.points.filter(isPlacePoint).map((point, idxx) => (
+              <li key={idxx}>
+                <Typography>
+                  {moment(point.time).format('LT')} {point.place.name}
+                </Typography>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </React.Fragment>
+    ))}
   </ExpansionPanelDetails>
 );
 
-interface Props extends WithStyles<typeof styles> {}
+interface Props extends WithStyles<typeof styles> {
+  courses: Course[];
+}
 
 const styles = createStyles({
+  placeLine: {
+    borderLeft: '1px solid rgb(196, 196, 196)',
+    margin: '-6px 0 0 16px',
+    padding: '10px 0'
+  },
+  placeList: {
+    color: 'rgb(117, 117, 117)',
+    fontSize: '24px',
+    margin: '0 0 0 17px',
+    padding: '0'
+  },
   root: {
     display: 'block'
   }

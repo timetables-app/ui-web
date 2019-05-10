@@ -678,7 +678,7 @@ const dummySearchResult: SearchResult = {
         }
       ],
       destinationTime: new Date('05-01-2019 13:37:00'),
-      meansOfTransport: [VehicleType.bus, CourseType.walking],
+      meansOfTransport: [VehicleType.bus, VehicleType.tram, CourseType.walking],
       sourceTime: new Date('05-01-2019 10:03:00')
     }
   ]
