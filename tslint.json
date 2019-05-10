@@ -18,6 +18,7 @@
     ],
     "no-submodule-imports": [
       true,
+      "moment/locale/pl",
       "redux-saga/effects",
       "@material-ui/core/TextField"
     ],

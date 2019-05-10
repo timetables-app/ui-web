@@ -78,7 +78,7 @@ const dummySearchResult: SearchResult = {
         },
         {
           id: 2,
-          line: { number: '1', vehicleType: VehicleType.bus },
+          line: { number: 'Kraków - Oświęcim', vehicleType: VehicleType.bus },
           points: [
             {
               onDemand: false,
@@ -233,7 +233,10 @@ const dummySearchResult: SearchResult = {
         },
         {
           id: 3,
-          line: { number: '1', vehicleType: VehicleType.bus },
+          line: {
+            number: 'Oświęcim - Bielsko-Biała',
+            vehicleType: VehicleType.bus
+          },
           points: [
             {
               onDemand: true,
@@ -672,7 +675,11 @@ const dummySearchResult: SearchResult = {
           },
           type: CourseType.transit
         }
-      ]
+      ],
+      destinationTime: new Date('05-01-2019 13:37:00'),
+      sourceTime: new Date('05-01-2019 10:03:00')
     }
   ]
 };
+
+export default dummySearchResult;

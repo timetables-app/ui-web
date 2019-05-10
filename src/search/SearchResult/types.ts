@@ -3,6 +3,8 @@ export interface SearchResult {
 }
 
 interface SearchResultPath {
+  sourceTime: Date;
+  destinationTime: Date;
   courses: Course[];
 }
 

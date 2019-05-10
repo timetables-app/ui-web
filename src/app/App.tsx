@@ -1,5 +1,8 @@
 import MomentUtils from '@date-io/moment';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import moment from 'moment';
+// @ts-ignore
+import pl from 'moment/locale/pl';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -17,6 +20,8 @@ import { SearchMap } from '../search';
 import SearchResult from '../search/SearchResult';
 import Layout from './Layout';
 import store from './store';
+
+moment.updateLocale('pl', pl);
 
 function App() {
   return (
