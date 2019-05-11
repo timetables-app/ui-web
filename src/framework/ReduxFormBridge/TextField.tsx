@@ -1,6 +1,6 @@
 import { TextField as MuiTextField } from '@material-ui/core';
 import { TextFieldProps } from '@material-ui/core/TextField';
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Field, WrappedFieldProps } from 'redux-form';
 
 const TextField: FunctionComponent<Props> = ({ name, ...muiProps }) => {

@@ -18,11 +18,11 @@ const CompanyOwner: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
         </ListSubheader>
       )}
       {[
-        {
-          Icon: BusinessCenter,
-          text: 'Moja firma',
-          to: '/my-company'
-        },
+        // {
+        //   Icon: BusinessCenter,
+        //   text: 'Moja firma',
+        //   to: '/my-company'
+        // },
         // {
         //   Icon: AirportShuttle,
         //   text: 'Pojazdy',

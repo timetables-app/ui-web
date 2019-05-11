@@ -45,7 +45,7 @@ const AppBar: FunctionComponent<Props> = ({
         <Typography variant="h6" color="inherit" noWrap style={{ flexGrow: 1 }}>
           {title}
         </Typography>
-        <AccountDropdown />
+        {/*<AccountDropdown />*/}
       </Toolbar>
     </MuiAppBar>
   );

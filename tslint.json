@@ -20,7 +20,8 @@
       true,
       "moment/locale/pl",
       "redux-saga/effects",
-      "@material-ui/core/TextField"
+      "@material-ui/core/TextField",
+      "@material-ui/core/Select"
     ],
     "prettier": [
       true,
