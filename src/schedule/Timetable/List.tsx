@@ -1,5 +1,6 @@
 import { IconButton, Tooltip } from '@material-ui/core';
 import { AddCircleOutline } from '@material-ui/icons';
+import moment from 'moment';
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -31,7 +32,12 @@ const toolbar = () => (
   </Tooltip>
 );
 
-const adapter = (data: any) => data._embedded.timetables;
+const adapter = (data: any) =>
+  data._embedded.timetables.map(({ validFrom, validUntil, ...rest }: any) => ({
+    validFrom: moment(validFrom).format('LL'),
+    validUntil: moment(validUntil).format('LL'),
+    ...rest
+  }));
 
 interface Props {
   setTitle: (title: string) => void;

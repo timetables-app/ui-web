@@ -132,7 +132,7 @@ const fetchCompanySuggestion = (
     .then(response => {
       return response.data.content.map((company: any) => {
         return {
-          label: company.name,
+          label: `${company.name} (id: ${company.id})`,
           value: 'http://localhost:8080/companies/' + company.id
         };
       });

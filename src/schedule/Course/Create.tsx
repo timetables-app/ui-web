@@ -128,7 +128,7 @@ const fetchTimetableSuggestion = (
         return {
           label: `${v.supportedCompany} (${moment(v.validFrom).format(
             'l'
-          )} - ${moment(v.validUntil).format('l')})`,
+          )} - ${moment(v.validUntil).format('l')}) (id: ${v.id})`,
           value: v._links.self.href
         };
       });
