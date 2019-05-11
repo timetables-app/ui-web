@@ -18,10 +18,6 @@ import {
   SubmissionError
 } from 'redux-form';
 import {
-  decrementProgress,
-  incrementProgress
-} from '../../framework/LinearProgress';
-import {
   SelectField,
   submitFormError,
   submitFormStart,
@@ -34,8 +30,6 @@ import { VehicleType } from '../../search/SearchResult/types';
 const Create: FunctionComponent<Props> = ({
   handleSubmit,
   submitting,
-  incrementProgress: dispatchIncrementProgress,
-  decrementProgress: dispatchDecrementProgress,
   setTitle: dispatchSetTitle
 }) => {
   dispatchSetTitle('Dodaj linię');
@@ -91,8 +85,6 @@ const Create: FunctionComponent<Props> = ({
 };
 
 interface Props extends InjectedFormProps<{}, {}> {
-  incrementProgress: () => void;
-  decrementProgress: () => void;
   setTitle: (title: string) => void;
 }
 
@@ -110,8 +102,6 @@ const formSubmitHandler: FormSubmitHandler = (values, dispatch, props: any) => {
 };
 
 const mapDispatchToProps = {
-  decrementProgress,
-  incrementProgress,
   setTitle
 };
 

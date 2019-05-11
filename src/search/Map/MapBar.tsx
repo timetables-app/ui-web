@@ -8,8 +8,8 @@ import {
 import { Place } from '@material-ui/icons';
 import { DateTimePicker } from 'material-ui-pickers';
 import React, { FunctionComponent } from 'react';
-import { PlacePoint } from './types';
 import { Link } from 'react-router-dom';
+import { PlacePoint } from './types';
 
 const MapBar: FunctionComponent<Props> = ({
   source,

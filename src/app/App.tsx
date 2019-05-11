@@ -15,7 +15,14 @@ import {
   MyCompany,
   Register
 } from '../community';
-import { GeoData, Line, LineCreate, Timetable, Vehicle } from '../schedule';
+import {
+  GeoData,
+  Line,
+  LineCreate,
+  Timetable,
+  TimetableCreate,
+  Vehicle
+} from '../schedule';
 import { SearchMap } from '../search';
 import SearchResult from '../search/SearchResult';
 import Layout from './Layout';
@@ -40,9 +47,12 @@ function App() {
 
               <Route path="/my-company" exact component={MyCompany} />
               <Route path="/vehicles" exact component={Vehicle} />
+
               <Route path="/lines" exact component={Line} />
               <Route path="/lines/new" exact component={LineCreate} />
+
               <Route path="/timetables" exact component={Timetable} />
+              <Route path="/timetables/new" exact component={TimetableCreate} />
 
               <Route path="/companies" exact component={CompanyList} />
               <Route path="/geodata" component={GeoData} />
