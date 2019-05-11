@@ -16,6 +16,10 @@ import {
   Register
 } from '../community';
 import {
+  Course,
+  CourseCreate,
+  CoursePart,
+  CoursePartCreate,
   GeoData,
   Line,
   LineCreate,
@@ -53,6 +57,16 @@ function App() {
 
               <Route path="/timetables" exact component={Timetable} />
               <Route path="/timetables/new" exact component={TimetableCreate} />
+
+              <Route path="/courses" exact component={Course} />
+              <Route path="/courses/new" exact component={CourseCreate} />
+
+              <Route path="/course-parts" exact component={CoursePart} />
+              <Route
+                path="/course-parts/new"
+                exact
+                component={CoursePartCreate}
+              />
 
               <Route path="/companies" exact component={CompanyList} />
               <Route path="/geodata" component={GeoData} />

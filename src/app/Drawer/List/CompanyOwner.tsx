@@ -1,10 +1,5 @@
 import { List, ListSubheader, withStyles, WithStyles } from '@material-ui/core';
-import {
-  AirportShuttle,
-  BusinessCenter,
-  Gesture,
-  Schedule
-} from '@material-ui/icons';
+import { CompareArrows, Gesture, Schedule, Timeline } from '@material-ui/icons';
 import React, { FunctionComponent } from 'react';
 import ListItem from './ListItem';
 import styles from './styles';
@@ -37,6 +32,16 @@ const CompanyOwner: FunctionComponent<Props> = ({ classes, drawerOpen }) => {
           Icon: Schedule,
           text: 'Rozkłady',
           to: '/timetables'
+        },
+        {
+          Icon: CompareArrows,
+          text: 'Kursy',
+          to: '/courses'
+        },
+        {
+          Icon: Timeline,
+          text: 'Elementy kursów',
+          to: '/course-parts'
         }
       ].map((props, idx) => (
         <ListItem key={idx} {...props} />
