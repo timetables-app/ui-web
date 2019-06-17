@@ -85,8 +85,8 @@ const DataTable: FunctionComponent<Props> = ({
             filter: false,
             onTableChange,
             print: false,
-            responsive: 'scroll',
-            selectableRows: false,
+            // responsive: 'stacked',
+            // selectableRows: false,
             serverSide: true,
             textLabels: i18n.pl.dataTables,
             viewColumns: false
