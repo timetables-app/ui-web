@@ -1,8 +1,12 @@
 import { withStyles, WithStyles } from '@material-ui/core';
 import { TextFieldProps } from '@material-ui/core/TextField';
 import Downshift, { Actions, DownshiftProps, PropGetters } from 'downshift';
-import React, { FunctionComponent, useState } from 'react';
-import { WrappedFieldInputProps } from 'redux-form';
+import React, {
+  ChangeEvent,
+  FocusEvent,
+  FunctionComponent,
+  useState
+} from 'react';
 import AutocompleteInput from './AutocompleteInput';
 import AutocompletePopper from './AutocompletePopper';
 import styles from './styles';
@@ -11,14 +15,12 @@ import { Suggestion, SuggestionsFetcher } from './types';
 const Autocomplete: FunctionComponent<Props> = ({
   fetchSuggestions,
   classes,
-  muiProps,
-  reduxFormProps
+  onChange: onChangeInjected,
+  onBlur,
+  ...muiProps
 }) => {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [inputRef, setInputRef] = useState<HTMLDivElement | null>(null);
-
-  const onChange = (v: Suggestion | null) =>
-    reduxFormProps.onChange(v ? v.value : v);
 
   const onInputValueChange = (v: string) => {
     if (v) {
@@ -31,7 +33,7 @@ const Autocomplete: FunctionComponent<Props> = ({
 
   return (
     <Downshift
-      onChange={onChange}
+      onChange={onChangeInjected}
       onInputValueChange={onInputValueChange}
       itemToString={itemToString}
     >
@@ -55,7 +57,6 @@ const Autocomplete: FunctionComponent<Props> = ({
             <AutocompleteInput
               resetInput={resetInput}
               downshiftProps={getInputProps()}
-              reduxFormProps={reduxFormProps}
               muiProps={muiProps}
               inputRef={setInputRef}
             />
@@ -79,9 +80,11 @@ type RenderPropProps = DownshiftProps<Suggestion> &
   Actions<Suggestion> &
   PropGetters<Suggestion>;
 
-interface Props extends SuggestionsFetcher, WithStyles<typeof styles> {
-  muiProps: TextFieldProps;
-  reduxFormProps: WrappedFieldInputProps;
-}
+type Props = SuggestionsFetcher &
+  TextFieldProps &
+  WithStyles<typeof styles> & {
+    onChange: (e: ChangeEvent) => void;
+    onBlur: (e: FocusEvent) => void;
+  };
 
 export default withStyles(styles, { withTheme: true })(Autocomplete);

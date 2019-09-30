@@ -4,181 +4,198 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Grid
+  Grid,
+  TextField
 } from '@material-ui/core';
 import axios from 'axios';
+import { Form, Formik, FormikActions, FormikProps } from 'formik';
+import { History } from 'history';
 import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import {
-  FormSubmitHandler,
-  InjectedFormProps,
-  reduxForm,
-  SubmissionError
-} from 'redux-form';
-import {
-  decrementProgress,
-  incrementProgress
-} from '../../../framework/LinearProgress';
-import {
-  AutocompleteField,
-  submitFormError,
-  submitFormStart,
-  submitFormSuccess,
-  TextField
-} from '../../../framework/ReduxFormBridge';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import Autocomplete from '../../../framework/Autocomplete';
 
-const Create: FunctionComponent<Props> = ({
-  handleSubmit,
-  submitting,
-  incrementProgress: dispatchIncrementProgress,
-  decrementProgress: dispatchDecrementProgress
-}) => {
+const Create: FunctionComponent<RouteComponentProps> = ({ history }) => {
   return (
     <Grid container style={{ padding: 24 }}>
       <Grid item xs={12} lg={6}>
         <Card>
           <CardHeader title="Dodaj miejsce" />
-          <CardContent>
-            <Grid container spacing={24}>
-              <Grid item xs={12}>
-                <TextField
-                  label="Nazwa"
-                  name="name"
-                  variant="outlined"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  label="Szerokość geog."
-                  name="lat"
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  label="Długość geog."
-                  name="lng"
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <AutocompleteField
-                  fetchSuggestions={fetchLocalitySuggestion(
-                    dispatchIncrementProgress,
-                    dispatchDecrementProgress
-                  )}
-                  name="locality"
-                  variant="outlined"
-                  label="Miejscowość"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Opis dodatkowy"
-                  name="explanation"
-                  variant="outlined"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <AutocompleteField
-                  fetchSuggestions={fetchPlaceSuggestion(
-                    dispatchIncrementProgress,
-                    dispatchDecrementProgress
-                  )}
-                  name="variantOf"
-                  variant="outlined"
-                  label="Odpowiednik"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Pojemność"
-                  name="capacity"
-                  type="number"
-                  variant="outlined"
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
-          <CardActions>
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={handleSubmit}
-              disabled={submitting}
-            >
-              Zapisz
-            </Button>
-
-            <Button
-              variant="outlined"
-              disabled={submitting}
-              {...{ component: Link, to: '/geodata/places' } as any}
-            >
-              Anuluj
-            </Button>
-          </CardActions>
+          <Formik
+            initialValues={{}}
+            onSubmit={onSubmit(history)}
+            component={FormCreate}
+          />
         </Card>
       </Grid>
     </Grid>
   );
 };
 
-interface Props extends InjectedFormProps<{}, {}> {
-  incrementProgress: () => void;
-  decrementProgress: () => void;
+const FormCreate: FunctionComponent<FormikProps<Values>> = ({
+  isSubmitting,
+  values,
+  handleBlur,
+  handleChange,
+  errors
+}) => (
+  <Form>
+    <CardContent>
+      <Grid container spacing={10}>
+        <Grid item xs={12}>
+          <TextField
+            label="Nazwa"
+            name="name"
+            variant="outlined"
+            fullWidth
+            value={values.name}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={!!errors.name}
+            helperText={errors.name}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Szerokość geog."
+            name="lat"
+            type="number"
+            variant="outlined"
+            fullWidth
+            value={values.lat}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={!!errors.lat}
+            helperText={errors.lat}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Długość geog."
+            name="lng"
+            type="number"
+            variant="outlined"
+            fullWidth
+            value={values.lng}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={!!errors.lng}
+            helperText={errors.lng}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Autocomplete
+            fetchSuggestions={fetchLocalitySuggestion}
+            name="locality"
+            variant="outlined"
+            label="Miejscowość"
+            fullWidth
+            value={values.locality}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={!!errors.locality}
+            helperText={errors.locality}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Opis dodatkowy"
+            name="explanation"
+            variant="outlined"
+            fullWidth
+            value={values.explanation}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={!!errors.explanation}
+            helperText={errors.explanation}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Autocomplete
+            fetchSuggestions={fetchPlaceSuggestion}
+            name="variantOf"
+            variant="outlined"
+            label="Odpowiednik"
+            fullWidth
+            value={values.variantOf}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={!!errors.variantOf}
+            helperText={errors.variantOf}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Pojemność"
+            name="capacity"
+            type="number"
+            variant="outlined"
+            fullWidth
+            value={values.capacity}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            error={!!errors.capacity}
+            helperText={errors.capacity}
+          />
+        </Grid>
+      </Grid>
+    </CardContent>
+    <CardActions>
+      <Button
+        color="primary"
+        variant="outlined"
+        type="submit"
+        disabled={isSubmitting}
+      >
+        Zapisz
+      </Button>
+
+      <Button
+        variant="outlined"
+        disabled={isSubmitting}
+        {...({ component: Link, to: '/geodata/places' } as any)}
+      >
+        Anuluj
+      </Button>
+    </CardActions>
+  </Form>
+);
+
+interface Values {
+  name?: string;
+  lat?: number;
+  lng?: number;
+  locality?: string;
+  explanation?: string;
+  variantOf?: string;
+  capacity?: number;
 }
 
-const formSubmitHandler: FormSubmitHandler = (values, dispatch, props: any) => {
-  dispatch(submitFormStart());
+const onSubmit = (history: History) => (
+  values: Values,
+  formikActions: FormikActions<Values>
+) => {
   return axios
     .post('http://localhost:8080/places', values)
-    .then(() =>
-      dispatch(
-        submitFormSuccess({ path: '/geodata/places', history: props.history })
-      )
-    )
+    .then(() => history.push('/geodata/places'))
     .catch(err => {
-      dispatch(submitFormError());
-      throw new SubmissionError(err.response.data);
+      formikActions.setErrors(err.response.data);
     });
 };
 
-const fetchLocalitySuggestion = (
-  dispatchIncrementProgress: () => void,
-  dispatchDecrementProgress: () => void
-) => (q: string) => {
-  dispatchIncrementProgress();
+const fetchLocalitySuggestion = (q: string) => {
   return axios
     .get('http://localhost:8080/localities/search/q', {
       params: { q, size: 5 }
     })
     .then(response => {
       return response.data._embedded.localities.map((locality: any) => ({
-        label: `${locality.name}, ${locality.region}, ${locality.state}, ${
-          locality.country
-        }`,
+        label: `${locality.name}, ${locality.region}, ${locality.state}, ${locality.country}`,
         value: locality._links.self.href
       }));
-    })
-    .finally(dispatchDecrementProgress);
+    });
 };
 
-const fetchPlaceSuggestion = (
-  dispatchIncrementProgress: () => void,
-  dispatchDecrementProgress: () => void
-) => (q: string) => {
-  dispatchIncrementProgress();
+const fetchPlaceSuggestion = (q: string) => {
   return axios
     .get('http://localhost:8080/places/search/q', {
       params: { q, size: 5 }
@@ -188,18 +205,7 @@ const fetchPlaceSuggestion = (
         label: `${place.name}, ${place.locality}`,
         value: place._links.self.href
       }));
-    })
-    .finally(dispatchDecrementProgress);
+    });
 };
 
-const mapDispatchToProps = {
-  decrementProgress,
-  incrementProgress
-};
-
-export default reduxForm({ form: 'place-create', onSubmit: formSubmitHandler })(
-  connect(
-    null,
-    mapDispatchToProps
-  )(Create)
-);
+export default withRouter(Create);

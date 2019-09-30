@@ -3,11 +3,9 @@ import { TextFieldProps } from '@material-ui/core/TextField';
 import { Close } from '@material-ui/icons';
 import { GetInputPropsOptions } from 'downshift';
 import React, { FunctionComponent } from 'react';
-import { WrappedFieldInputProps } from 'redux-form';
 
 const AutocompleteInput: FunctionComponent<Props> = ({
   downshiftProps,
-  reduxFormProps,
   muiProps,
   resetInput,
   inputRef
@@ -25,7 +23,6 @@ const AutocompleteInput: FunctionComponent<Props> = ({
           ),
           ...(downshiftProps as any) // fixme incompatible mui & downshift types
         }}
-        {...reduxFormProps}
         {...muiProps}
       />
     </div>
@@ -34,7 +31,6 @@ const AutocompleteInput: FunctionComponent<Props> = ({
 
 interface Props {
   downshiftProps: GetInputPropsOptions;
-  reduxFormProps: WrappedFieldInputProps;
   muiProps: TextFieldProps;
   resetInput: () => void;
   inputRef: (ref: HTMLDivElement | null) => void;
